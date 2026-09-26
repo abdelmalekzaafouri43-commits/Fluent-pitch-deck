@@ -62,34 +62,6 @@
             border-radius: 9999px;
         }
         
-        /* Slide Animations */
-        .slide-transition-slide {
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
-        }
-        .slide-transition-fade {
-            transition: opacity 0.35s ease-in-out;
-        }
-        .slide-transition-scale {
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease;
-        }
-
-        .slide-hidden-left {
-            transform: translateX(-60px);
-            opacity: 0;
-        }
-        .slide-hidden-right {
-            transform: translateX(60px);
-            opacity: 0;
-        }
-        .slide-hidden-scale {
-            transform: scale(0.92);
-            opacity: 0;
-        }
-        .slide-visible {
-            transform: translateX(0) scale(1);
-            opacity: 1;
-        }
-
         /* Glassmorphism */
         .glass-panel {
             background: rgba(255, 255, 255, 0.7);
@@ -177,7 +149,7 @@
             </div>
         </aside>
 
-        <!-- MAIN PRESENTATION STAGE -->
+        <!-- MAIN PRESENTATION STAGE & AI TUTOR AREA -->
         <main class="flex-1 flex flex-col h-full bg-slate-200/60 dark:bg-slate-950 relative overflow-hidden">
             
             <!-- Top Controls Header -->
@@ -191,26 +163,92 @@
                     </h2>
                 </div>
 
-                <div class="flex items-center space-x-2">
-                    <button onclick="prevSlide()" class="w-9 h-9 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition shadow-sm">
-                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                <!-- Header Actions -->
+                <div class="flex items-center space-x-3">
+                    <!-- AI Tutor Panel Toggle Button -->
+                    <button onclick="toggleMainAiPanel()" id="mainAiToggleBtn" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl flex items-center space-x-2 shadow-md transition">
+                        <i class="fa-solid fa-robot"></i>
+                        <span>AI Tutor Chat</span>
                     </button>
-                    <button onclick="nextSlide()" class="w-9 h-9 rounded-lg bg-blue-600 text-white flex items-center justify-center hover:bg-blue-500 transition shadow-md shadow-blue-500/20">
-                        <i class="fa-solid fa-chevron-right text-xs"></i>
-                    </button>
+
+                    <div class="flex items-center space-x-1.5 border-l border-slate-300 dark:border-slate-800 pl-3">
+                        <button onclick="prevSlide()" class="w-9 h-9 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition shadow-sm">
+                            <i class="fa-solid fa-chevron-left text-xs"></i>
+                        </button>
+                        <button onclick="nextSlide()" class="w-9 h-9 rounded-lg bg-blue-600 text-white flex items-center justify-center hover:bg-blue-500 transition shadow-md shadow-blue-500/20">
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                    </div>
                 </div>
             </header>
 
-            <!-- 16:9 Aspect Ratio Slide Canvas Container -->
-            <div class="flex-1 flex items-center justify-center p-6 sm:p-10 relative overflow-hidden">
-                <div id="slideFrame" class="w-full max-w-5xl aspect-[16/9] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200/80 dark:border-slate-800/80 overflow-hidden relative flex flex-col p-8 sm:p-12 transition-all duration-300">
+            <!-- MAIN CONTENT GRID: SLIDE STAGE (LEFT) + AI TUTOR CHAT (RIGHT) -->
+            <div class="flex-1 flex overflow-hidden p-6 gap-6 relative">
+                
+                <!-- 16:9 SLIDE CANVAS CONTAINER -->
+                <div class="flex-1 flex items-center justify-center relative overflow-hidden">
+                    <div id="slideFrame" class="w-full max-w-5xl aspect-[16/9] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200/80 dark:border-slate-800/80 overflow-hidden relative flex flex-col p-8 sm:p-12 transition-all duration-300">
+                        
+                        <!-- Slide Content Injector -->
+                        <div id="slideContent" class="w-full h-full flex flex-col justify-between transition-all">
+                            <!-- Dynamic Slide HTML inserted here -->
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SIDE-BY-SIDE AI TUTOR CHAT PANEL (CLEAR & DEDICATED) -->
+                <div id="mainAiPanel" class="w-96 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl flex flex-col shrink-0 overflow-hidden transition-all duration-300">
                     
-                    <!-- Slide Content Injector -->
-                    <div id="slideContent" class="w-full h-full flex flex-col justify-between transition-all">
-                        <!-- Dynamic Slide HTML inserted here -->
+                    <!-- AI Panel Header -->
+                    <div class="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between">
+                        <div class="flex items-center space-x-2.5">
+                            <div class="w-8 h-8 rounded-lg bg-blue-600/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-wand-magic-sparkles text-sm"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xs font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">AI Grammar Tutor</h3>
+                                <p id="aiActiveSlideLabel" class="text-[10px] text-slate-500 dark:text-slate-400 truncate max-w-[180px]">Slide 1: Mastering Professional Nuance</p>
+                            </div>
+                        </div>
+                        <button onclick="toggleMainAiPanel()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1">
+                            <i class="fa-solid fa-xmark text-sm"></i>
+                        </button>
+                    </div>
+
+                    <!-- Quick Prompt Chips -->
+                    <div class="p-3 border-b border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-950/40">
+                        <div class="text-[10px] font-bold text-slate-400 uppercase mb-2">Ask AI Quick Question</div>
+                        <div class="flex flex-wrap gap-1.5">
+                            <button onclick="sendQuickPrompt('Explain this slide in detail')" class="px-2.5 py-1 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-lg text-[10px] font-semibold transition">
+                                💡 Explain slide
+                            </button>
+                            <button onclick="sendQuickPrompt('Give 2 real workplace examples')" class="px-2.5 py-1 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-lg text-[10px] font-semibold transition">
+                                💼 Workplace examples
+                            </button>
+                            <button onclick="sendQuickPrompt('What common mistake should I avoid?')" class="px-2.5 py-1 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-lg text-[10px] font-semibold transition">
+                                ⚠️ Avoid mistakes
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Chat Messages List -->
+                    <div id="mainAiChatMessages" class="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50/50 dark:bg-slate-950/50">
+                        <div class="p-3 rounded-xl bg-blue-50 dark:bg-slate-800 border border-blue-200 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300">
+                            👋 <strong>Welcome to AI Tutor!</strong> Ask me anything about the active slide's grammar rules, syntax tone, or strategic workplace communication.
+                        </div>
+                    </div>
+
+                    <!-- Chat Input Area -->
+                    <div class="p-3 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center space-x-2">
+                        <input type="text" id="mainAiInput" placeholder="Ask AI Tutor a question..." onkeydown="if(event.key==='Enter') sendMainAiMessage()" class="flex-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-500">
+                        <button onclick="sendMainAiMessage()" class="w-9 h-9 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition flex items-center justify-center shrink-0 shadow-md">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
                     </div>
 
                 </div>
+
             </div>
 
             <!-- Bottom Progress Bar -->
@@ -287,14 +325,7 @@
                         <span class="text-[10px] text-slate-400">Powered by Gemini AI</span>
                     </div>
 
-                    <!-- Suggested Query Chips -->
-                    <div class="flex space-x-2 my-2 overflow-x-auto pb-1 shrink-0">
-                        <button onclick="sendQuickPrompt('Explain this slide in detail')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-medium rounded-full border border-slate-700 whitespace-nowrap">Explain slide</button>
-                        <button onclick="sendQuickPrompt('Give 2 real workplace examples')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-medium rounded-full border border-slate-700 whitespace-nowrap">Workplace examples</button>
-                        <button onclick="sendQuickPrompt('What common mistake should I avoid?')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-medium rounded-full border border-slate-700 whitespace-nowrap">Mistakes to avoid</button>
-                    </div>
-
-                    <!-- Chat Message Area -->
+                    <!-- Chat Message Area in Presenter Mode -->
                     <div id="aiChatMessages" class="flex-1 overflow-y-auto space-y-3 p-2 bg-slate-950/60 rounded-lg border border-slate-800 my-2">
                         <div class="text-xs text-slate-400 bg-slate-800/80 p-3 rounded-lg border border-slate-700">
                             👋 Hi! I'm your AI Grammar Tutor. Ask me any specific question about the grammar topic on this slide!
@@ -553,6 +584,7 @@
         let isDarkMode = false;
         let currentTheme = 'corporate';
         let currentTransition = 'slide';
+        let isMainAiOpen = true;
 
         // INITIALIZATION
         document.addEventListener('DOMContentLoaded', () => {
@@ -582,10 +614,13 @@
             currentSlideIndex = index;
             const slide = slidesData[index];
 
-            // Update Header & Progress
+            // Update Header, Progress, & AI Active Slide Label
             document.getElementById('currentSlideBadge').innerText = `Slide ${slide.id} / ${slidesData.length}`;
             document.getElementById('currentSlideCategory').innerText = slide.category;
             document.getElementById('progressBar').style.width = `${((index + 1) / slidesData.length) * 100}%`;
+            
+            const activeLabel = document.getElementById('aiActiveSlideLabel');
+            if (activeLabel) activeLabel.innerText = `Slide ${slide.id}: ${slide.title}`;
 
             // Transition Animation
             const content = document.getElementById('slideContent');
@@ -600,6 +635,22 @@
 
             if (isPresenterMode) {
                 updatePresenterMode();
+            }
+        }
+
+        // TOGGLE MAIN AI TUTOR PANEL
+        function toggleMainAiPanel() {
+            isMainAiOpen = !isMainAiOpen;
+            const panel = document.getElementById('mainAiPanel');
+            const btn = document.getElementById('mainAiToggleBtn');
+            if (isMainAiOpen) {
+                panel.classList.remove('hidden');
+                panel.classList.add('flex');
+                btn.className = "px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl flex items-center space-x-2 shadow-md transition";
+            } else {
+                panel.classList.add('hidden');
+                panel.classList.remove('flex');
+                btn.className = "px-3 py-1.5 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold rounded-xl flex items-center space-x-2 shadow-sm transition";
             }
         }
 
@@ -723,8 +774,64 @@
             }
         }
 
-        // AI TUTOR CHAT (GEMINI REST INTEGRATION)
-        async function sendAiMessage() {
+        // AI TUTOR CHAT (MAIN STAGE CHAT)
+        function sendMainAiMessage() {
+            const input = document.getElementById('mainAiInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            input.value = '';
+            appendMainChatMessage('You', text, true);
+
+            const slide = slidesData[currentSlideIndex];
+            const chatContainer = document.getElementById('mainAiChatMessages');
+
+            // Thinking indicator
+            const thinkingId = 'thinking_main_' + Date.now();
+            const thinkingDiv = document.createElement('div');
+            thinkingDiv.id = thinkingId;
+            thinkingDiv.className = 'p-2.5 text-xs text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-slate-800 rounded-xl border border-blue-200 dark:border-slate-700 flex items-center space-x-2';
+            thinkingDiv.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i><span>AI Tutor is formulating advice...</span>`;
+            chatContainer.appendChild(thinkingDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            setTimeout(() => {
+                document.getElementById(thinkingId)?.remove();
+                
+                let responseText = "";
+                if (text.toLowerCase().includes('example')) {
+                    responseText = `Here are 2 workplace examples for <strong>${slide.title}</strong>:<br/><br/>
+                    1. <em>"Our team has deployed 3 critical hotfixes this week."</em> (Focuses on continuous operational momentum).<br/>
+                    2. <em>"If market demands shift, we will adapt our strategy immediately."</em> (1st Conditional: actionable commitment).`;
+                } else if (text.toLowerCase().includes('mistake') || text.toLowerCase().includes('avoid')) {
+                    responseText = `<strong>Top Mistake to Avoid on Slide ${slide.id}:</strong><br/>
+                    Never mix up time anchors! Using passive or 2nd conditional phrases during active client negotiations signals hesitation or doubt. Maintain direct active syntax to signal executive confidence.`;
+                } else {
+                    responseText = `<strong>AI Tutor Insight on ${slide.title}:</strong><br/>
+                    ${slide.notes}<br/><br/>
+                    💡 <strong>Pro Tip:</strong> Apply this in your next executive email or stakeholder presentation to build authority.`;
+                }
+
+                appendMainChatMessage('AI Tutor', responseText, false);
+            }, 600);
+        }
+
+        function sendQuickPrompt(promptText) {
+            document.getElementById('mainAiInput').value = promptText;
+            sendMainAiMessage();
+        }
+
+        function appendMainChatMessage(sender, message, isUser) {
+            const container = document.getElementById('mainAiChatMessages');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `p-3 rounded-xl text-xs leading-relaxed border ${isUser ? 'bg-blue-600 text-white border-blue-500 ml-6 shadow-sm' : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-slate-200 dark:border-slate-700 mr-6 shadow-sm'}`;
+            msgDiv.innerHTML = `<strong class="block mb-1 font-bold ${isUser ? 'text-blue-100' : 'text-blue-600 dark:text-blue-400'}">${sender}:</strong> ${message}`;
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // PRESENTER OVERLAY AI CHAT
+        function sendAiMessage() {
             const input = document.getElementById('aiChatInput');
             const text = input.value.trim();
             if (!text) return;
@@ -735,7 +842,6 @@
             const slide = slidesData[currentSlideIndex];
             const chatContainer = document.getElementById('aiChatMessages');
 
-            // Thinking Indicator
             const thinkingId = 'thinking_' + Date.now();
             const thinkingDiv = document.createElement('div');
             thinkingDiv.id = thinkingId;
@@ -744,22 +850,11 @@
             chatContainer.appendChild(thinkingDiv);
             chatContainer.scrollTop = chatContainer.scrollHeight;
 
-            try {
-                // Call backend or local Gemini REST
-                setTimeout(() => {
-                    document.getElementById(thinkingId)?.remove();
-                    const aiReply = `Regarding "${slide.title}": ${slide.notes} For workplace application, ensure syntax precision to maintain authority.`;
-                    appendChatMessage('AI Tutor', aiReply, false);
-                }, 800);
-            } catch (err) {
+            setTimeout(() => {
                 document.getElementById(thinkingId)?.remove();
-                appendChatMessage('AI Tutor', `Here is key advice on ${slide.title}: ${slide.notes}`, false);
-            }
-        }
-
-        function sendQuickPrompt(promptText) {
-            document.getElementById('aiChatInput').value = promptText;
-            sendAiMessage();
+                const aiReply = `Regarding "${slide.title}": ${slide.notes}`;
+                appendChatMessage('AI Tutor', aiReply, false);
+            }, 600);
         }
 
         function appendChatMessage(sender, message, isUser) {
@@ -768,7 +863,7 @@
             msgDiv.className = `p-3 rounded-lg text-xs border ${isUser ? 'bg-blue-600/90 text-white border-blue-500 ml-6' : 'bg-slate-800 text-slate-200 border-slate-700 mr-6'}`;
             msgDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
             container.appendChild(msgDiv);
-            container.scrollTop = container.scrollHeight;
+            container.scrollTop = chatContainer.scrollHeight;
         }
 
         // EXPORT DECK
