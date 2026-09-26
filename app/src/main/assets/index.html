@@ -166,8 +166,8 @@
                 <!-- Header Actions -->
                 <div class="flex items-center space-x-3">
                     <!-- AI Tutor Panel Toggle Button -->
-                    <button onclick="toggleMainAiPanel()" id="mainAiToggleBtn" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl flex items-center space-x-2 shadow-md transition">
-                        <i class="fa-solid fa-robot"></i>
+                    <button onclick="toggleMainAiPanel()" id="mainAiToggleBtn" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs sm:text-sm font-extrabold rounded-xl flex items-center space-x-2 shadow-lg shadow-blue-500/20 transition active:scale-95">
+                        <i class="fa-solid fa-wand-magic-sparkles text-sm"></i>
                         <span>AI Tutor Chat</span>
                     </button>
 
@@ -197,52 +197,59 @@
                     </div>
                 </div>
 
-                <!-- SIDE-BY-SIDE AI TUTOR CHAT PANEL (CLEAR & DEDICATED) -->
-                <div id="mainAiPanel" class="w-96 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl flex flex-col shrink-0 overflow-hidden transition-all duration-300">
+                <!-- SIDE-BY-SIDE AI TUTOR CHAT PANEL (ENLARGED & PROMINENT) -->
+                <div id="mainAiPanel" class="w-full max-w-lg lg:w-[480px] xl:w-[540px] 2xl:w-[600px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl flex flex-col shrink-0 overflow-hidden transition-all duration-300">
                     
                     <!-- AI Panel Header -->
-                    <div class="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between">
-                        <div class="flex items-center space-x-2.5">
-                            <div class="w-8 h-8 rounded-lg bg-blue-600/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
-                                <i class="fa-solid fa-wand-magic-sparkles text-sm"></i>
+                    <div class="p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold shadow-md shadow-blue-500/20">
+                                <i class="fa-solid fa-wand-magic-sparkles text-base"></i>
                             </div>
                             <div>
-                                <h3 class="text-xs font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">AI Grammar Tutor</h3>
-                                <p id="aiActiveSlideLabel" class="text-[10px] text-slate-500 dark:text-slate-400 truncate max-w-[180px]">Slide 1: Mastering Professional Nuance</p>
+                                <h3 class="text-sm sm:text-base font-black text-slate-900 dark:text-white uppercase tracking-wider">AI Grammar Tutor</h3>
+                                <p id="aiActiveSlideLabel" class="text-xs text-slate-500 dark:text-slate-400 font-medium truncate max-w-[240px]">Slide 1: Mastering Professional Nuance</p>
                             </div>
                         </div>
-                        <button onclick="toggleMainAiPanel()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1">
-                            <i class="fa-solid fa-xmark text-sm"></i>
+                        <button onclick="toggleMainAiPanel()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition">
+                            <i class="fa-solid fa-xmark text-base"></i>
                         </button>
                     </div>
 
                     <!-- Quick Prompt Chips -->
-                    <div class="p-3 border-b border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-950/40">
-                        <div class="text-[10px] font-bold text-slate-400 uppercase mb-2">Ask AI Quick Question</div>
-                        <div class="flex flex-wrap gap-1.5">
-                            <button onclick="sendQuickPrompt('Explain this slide in detail')" class="px-2.5 py-1 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-lg text-[10px] font-semibold transition">
+                    <div class="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-100/60 dark:bg-slate-950/60">
+                        <div class="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2.5 flex items-center space-x-1.5">
+                            <i class="fa-solid fa-bolt text-amber-500 text-xs"></i>
+                            <span>Quick AI Prompts</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="sendQuickPrompt('Explain this slide in detail')" class="px-3.5 py-2 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-200/90 dark:border-slate-700 rounded-xl text-xs sm:text-sm font-bold shadow-sm transition hover:scale-[1.02]">
                                 💡 Explain slide
                             </button>
-                            <button onclick="sendQuickPrompt('Give 2 real workplace examples')" class="px-2.5 py-1 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-lg text-[10px] font-semibold transition">
+                            <button onclick="sendQuickPrompt('Give 2 real workplace examples')" class="px-3.5 py-2 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-200/90 dark:border-slate-700 rounded-xl text-xs sm:text-sm font-bold shadow-sm transition hover:scale-[1.02]">
                                 💼 Workplace examples
                             </button>
-                            <button onclick="sendQuickPrompt('What common mistake should I avoid?')" class="px-2.5 py-1 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-lg text-[10px] font-semibold transition">
+                            <button onclick="sendQuickPrompt('What common mistake should I avoid?')" class="px-3.5 py-2 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-200/90 dark:border-slate-700 rounded-xl text-xs sm:text-sm font-bold shadow-sm transition hover:scale-[1.02]">
                                 ⚠️ Avoid mistakes
                             </button>
                         </div>
                     </div>
 
                     <!-- Chat Messages List -->
-                    <div id="mainAiChatMessages" class="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50/50 dark:bg-slate-950/50">
-                        <div class="p-3 rounded-xl bg-blue-50 dark:bg-slate-800 border border-blue-200 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300">
-                            👋 <strong>Welcome to AI Tutor!</strong> Ask me anything about the active slide's grammar rules, syntax tone, or strategic workplace communication.
+                    <div id="mainAiChatMessages" class="flex-1 overflow-y-auto p-5 space-y-4 bg-slate-50/50 dark:bg-slate-950/50">
+                        <div class="p-4 rounded-2xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 dark:from-blue-900/30 dark:to-indigo-900/30 border border-blue-200 dark:border-blue-800/50 text-sm leading-relaxed text-slate-800 dark:text-slate-200 shadow-sm">
+                            <div class="flex items-center space-x-2 font-black text-blue-600 dark:text-blue-400 mb-1.5 text-sm uppercase tracking-wider">
+                                <i class="fa-solid fa-hand-wave"></i>
+                                <span>Welcome to AI Tutor!</span>
+                            </div>
+                            Ask me anything about the active slide's grammar rules, executive syntax tone, or strategic workplace communication.
                         </div>
                     </div>
 
                     <!-- Chat Input Area -->
-                    <div class="p-3 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center space-x-2">
-                        <input type="text" id="mainAiInput" placeholder="Ask AI Tutor a question..." onkeydown="if(event.key==='Enter') sendMainAiMessage()" class="flex-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-500">
-                        <button onclick="sendMainAiMessage()" class="w-9 h-9 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition flex items-center justify-center shrink-0 shadow-md">
+                    <div class="p-4 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center space-x-3">
+                        <input type="text" id="mainAiInput" placeholder="Ask AI Tutor a question..." onkeydown="if(event.key==='Enter') sendMainAiMessage()" class="flex-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3 text-sm text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white dark:focus:bg-slate-900 transition">
+                        <button onclick="sendMainAiMessage()" class="w-12 h-12 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl text-sm font-extrabold transition flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/25 active:scale-95">
                             <i class="fa-solid fa-paper-plane"></i>
                         </button>
                     </div>
@@ -646,11 +653,11 @@
             if (isMainAiOpen) {
                 panel.classList.remove('hidden');
                 panel.classList.add('flex');
-                btn.className = "px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl flex items-center space-x-2 shadow-md transition";
+                btn.className = "px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs sm:text-sm font-extrabold rounded-xl flex items-center space-x-2 shadow-lg shadow-blue-500/20 transition active:scale-95";
             } else {
                 panel.classList.add('hidden');
                 panel.classList.remove('flex');
-                btn.className = "px-3 py-1.5 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold rounded-xl flex items-center space-x-2 shadow-sm transition";
+                btn.className = "px-4 py-2 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs sm:text-sm font-bold rounded-xl flex items-center space-x-2 shadow-sm transition";
             }
         }
 
@@ -790,7 +797,7 @@
             const thinkingId = 'thinking_main_' + Date.now();
             const thinkingDiv = document.createElement('div');
             thinkingDiv.id = thinkingId;
-            thinkingDiv.className = 'p-2.5 text-xs text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-slate-800 rounded-xl border border-blue-200 dark:border-slate-700 flex items-center space-x-2';
+            thinkingDiv.className = 'p-3 text-sm font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-slate-800/80 rounded-2xl border border-blue-200 dark:border-slate-700 flex items-center space-x-3';
             thinkingDiv.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i><span>AI Tutor is formulating advice...</span>`;
             chatContainer.appendChild(thinkingDiv);
             chatContainer.scrollTop = chatContainer.scrollHeight;
@@ -824,8 +831,8 @@
         function appendMainChatMessage(sender, message, isUser) {
             const container = document.getElementById('mainAiChatMessages');
             const msgDiv = document.createElement('div');
-            msgDiv.className = `p-3 rounded-xl text-xs leading-relaxed border ${isUser ? 'bg-blue-600 text-white border-blue-500 ml-6 shadow-sm' : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-slate-200 dark:border-slate-700 mr-6 shadow-sm'}`;
-            msgDiv.innerHTML = `<strong class="block mb-1 font-bold ${isUser ? 'text-blue-100' : 'text-blue-600 dark:text-blue-400'}">${sender}:</strong> ${message}`;
+            msgDiv.className = `p-4 rounded-2xl text-sm leading-relaxed border ${isUser ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-blue-500/50 ml-8 shadow-md' : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border-slate-200 dark:border-slate-700 mr-8 shadow-md'}`;
+            msgDiv.innerHTML = `<div class="flex items-center space-x-2 mb-1.5"><i class="fa-solid ${isUser ? 'fa-user text-blue-200' : 'fa-robot text-blue-500'} text-xs"></i><strong class="font-extrabold ${isUser ? 'text-blue-100' : 'text-blue-600 dark:text-blue-400'} text-xs uppercase tracking-wider">${sender}:</strong></div><div>${message}</div>`;
             container.appendChild(msgDiv);
             container.scrollTop = container.scrollHeight;
         }
@@ -860,10 +867,10 @@
         function appendChatMessage(sender, message, isUser) {
             const container = document.getElementById('aiChatMessages');
             const msgDiv = document.createElement('div');
-            msgDiv.className = `p-3 rounded-lg text-xs border ${isUser ? 'bg-blue-600/90 text-white border-blue-500 ml-6' : 'bg-slate-800 text-slate-200 border-slate-700 mr-6'}`;
-            msgDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
+            msgDiv.className = `p-3.5 rounded-xl text-sm leading-relaxed border ${isUser ? 'bg-blue-600/90 text-white border-blue-500 ml-6 shadow-sm' : 'bg-slate-800 text-slate-200 border-slate-700 mr-6 shadow-sm'}`;
+            msgDiv.innerHTML = `<strong class="block mb-1 text-xs font-extrabold uppercase ${isUser ? 'text-blue-100' : 'text-blue-400'}">${sender}:</strong> ${message}`;
             container.appendChild(msgDiv);
-            container.scrollTop = chatContainer.scrollHeight;
+            container.scrollTop = container.scrollHeight;
         }
 
         // EXPORT DECK
