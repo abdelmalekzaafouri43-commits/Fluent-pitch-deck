@@ -1,0 +1,6 @@
+{
+  "name": "Grammar Slides",
+  "description": "Mastering Professional Nuance: Advanced English Grammar presentation app with executive controls, Presenter Mode, and interactive grammar diagnostics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

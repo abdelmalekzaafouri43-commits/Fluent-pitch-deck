@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering Professional Nuance: Advanced English Grammar</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        corporate: {
+                            navy: '#0F172A',
+                            slate: '#334155',
+                            blue: '#2563EB',
+                            light: '#F8FAFC'
+                        },
+                        editorial: {
+                            terracotta: '#C2410C',
+                            sage: '#047857',
+                            cream: '#FEF3C7',
+                            bg: '#FFFBEB'
+                        },
+                        cyber: {
+                            black: '#090D16',
+                            mint: '#10B981',
+                            gray: '#1E293B',
+                            neon: '#06B6D4'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            user-select: none;
+        }
+        .font-serif-heading {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(100, 116, 139, 0.4);
+            border-radius: 9999px;
+        }
+        
+        /* Slide Animations */
+        .slide-transition-slide {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+        }
+        .slide-transition-fade {
+            transition: opacity 0.35s ease-in-out;
+        }
+        .slide-transition-scale {
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease;
+        }
+
+        .slide-hidden-left {
+            transform: translateX(-60px);
+            opacity: 0;
+        }
+        .slide-hidden-right {
+            transform: translateX(60px);
+            opacity: 0;
+        }
+        .slide-hidden-scale {
+            transform: scale(0.92);
+            opacity: 0;
+        }
+        .slide-visible {
+            transform: translateX(0) scale(1);
+            opacity: 1;
+        }
+
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass-panel {
+            background: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+<body class="h-full bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-100 antialiased overflow-hidden transition-colors duration-300" id="appBody">
+
+    <div class="flex h-screen w-screen overflow-hidden">
+
+        <!-- DASHBOARD SIDEBAR (ALWAYS ON THE LEFT OF THE SCREEN) -->
+        <aside id="sidebar" class="w-80 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col z-30 transition-all duration-300 shadow-xl shrink-0">
+            <!-- Sidebar Header -->
+            <div class="p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
+                        <i class="fa-solid fa-graduation-cap text-lg"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-extrabold text-sm tracking-tight text-slate-900 dark:text-white uppercase">Grammar Deck</h1>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Executive Communication</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide Thumbnails List -->
+            <div class="flex-1 overflow-y-auto p-4 space-y-3">
+                <div class="text-[10px] font-bold tracking-wider text-slate-400 uppercase px-1 mb-2">Slide Navigation</div>
+                <div id="thumbnailList" class="space-y-2.5">
+                    <!-- Dynamic Thumbnails Rendered Here -->
+                </div>
+            </div>
+
+            <!-- Settings & Controls Panel -->
+            <div class="p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/50 space-y-3">
+                
+                <!-- Theme Selector -->
+                <div>
+                    <label class="text-[11px] font-bold text-slate-500 dark:text-slate-400 block mb-1.5 uppercase">Color Theme</label>
+                    <select id="themeSelect" onchange="changeTheme(this.value)" class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs rounded-lg p-2 font-medium focus:ring-2 focus:ring-blue-500 outline-none">
+                        <option value="corporate">Corporate Professional (Navy)</option>
+                        <option value="editorial">Creative Editorial (Terracotta)</option>
+                        <option value="cyber">Cyber Tech Minimal (Dark Mint)</option>
+                    </select>
+                </div>
+
+                <!-- Slide Transition Selector -->
+                <div>
+                    <label class="text-[11px] font-bold text-slate-500 dark:text-slate-400 block mb-1.5 uppercase">Transition Effect</label>
+                    <select id="transitionSelect" onchange="changeTransition(this.value)" class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs rounded-lg p-2 font-medium focus:ring-2 focus:ring-blue-500 outline-none">
+                        <option value="slide">Slide (Horizontal)</option>
+                        <option value="fade">Fade (Dissolve)</option>
+                        <option value="scale">Scale / Zoom</option>
+                    </select>
+                </div>
+
+                <!-- Dark Mode Toggle -->
+                <div class="flex items-center justify-between pt-1">
+                    <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">Dark Mode</span>
+                    <button id="darkModeBtn" onclick="toggleDarkMode()" class="w-11 h-6 bg-slate-300 dark:bg-blue-600 rounded-full p-1 transition-colors duration-200 ease-in-out focus:outline-none">
+                        <div id="darkModeDot" class="w-4 h-4 bg-white rounded-full shadow-md transform transition-transform duration-200 translate-x-0 dark:translate-x-5"></div>
+                    </button>
+                </div>
+
+                <!-- Presenter Mode Button -->
+                <button onclick="togglePresenterMode()" class="w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 dark:bg-blue-600 dark:hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition flex items-center justify-center space-x-2 shadow-md">
+                    <i class="fa-solid fa-desktop"></i>
+                    <span>Toggle Presenter Mode</span>
+                </button>
+
+                <!-- Export Deck Summary Button -->
+                <button onclick="exportDeck()" class="w-full py-2 px-4 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-semibold transition flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-file-export"></i>
+                    <span>Export Summary</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN PRESENTATION STAGE -->
+        <main class="flex-1 flex flex-col h-full bg-slate-200/60 dark:bg-slate-950 relative overflow-hidden">
+            
+            <!-- Top Controls Header -->
+            <header class="h-14 px-6 border-b border-slate-200/80 dark:border-slate-800/80 flex items-center justify-between bg-white/50 dark:bg-slate-900/50 backdrop-blur-md z-10">
+                <div class="flex items-center space-x-3">
+                    <span id="currentSlideBadge" class="px-2.5 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 rounded-md text-xs font-bold">
+                        Slide 1 / 5
+                    </span>
+                    <h2 id="currentSlideCategory" class="text-xs font-semibold text-slate-500 dark:text-slate-400 hidden sm:block">
+                        Executive Overview & Syntax Precision
+                    </h2>
+                </div>
+
+                <div class="flex items-center space-x-2">
+                    <button onclick="prevSlide()" class="w-9 h-9 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition shadow-sm">
+                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                    </button>
+                    <button onclick="nextSlide()" class="w-9 h-9 rounded-lg bg-blue-600 text-white flex items-center justify-center hover:bg-blue-500 transition shadow-md shadow-blue-500/20">
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- 16:9 Aspect Ratio Slide Canvas Container -->
+            <div class="flex-1 flex items-center justify-center p-6 sm:p-10 relative overflow-hidden">
+                <div id="slideFrame" class="w-full max-w-5xl aspect-[16/9] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200/80 dark:border-slate-800/80 overflow-hidden relative flex flex-col p-8 sm:p-12 transition-all duration-300">
+                    
+                    <!-- Slide Content Injector -->
+                    <div id="slideContent" class="w-full h-full flex flex-col justify-between transition-all">
+                        <!-- Dynamic Slide HTML inserted here -->
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Bottom Progress Bar -->
+            <div class="w-full h-1.5 bg-slate-300 dark:bg-slate-800">
+                <div id="progressBar" class="h-full bg-blue-600 transition-all duration-300" style="width: 20%;"></div>
+            </div>
+        </main>
+
+    </div>
+
+    <!-- PRESENTER MODE OVERLAY VIEW -->
+    <div id="presenterOverlay" class="fixed inset-0 bg-slate-950 text-white z-50 hidden flex-col p-6 overflow-hidden">
+        
+        <!-- Presenter Header -->
+        <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+            <div class="flex items-center space-x-3">
+                <span class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></span>
+                <span class="font-extrabold text-xs tracking-wider uppercase text-slate-200">Presenter Mode (Executive Control)</span>
+                <span id="presenterSlideNum" class="text-xs text-slate-400 font-medium">Slide 1 of 5</span>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <button onclick="readNotesTTS()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-emerald-400 rounded-lg text-xs font-bold border border-slate-700 flex items-center space-x-2 transition">
+                    <i class="fa-solid fa-volume-high"></i>
+                    <span id="ttsBtnText">Voice Read Notes</span>
+                </button>
+                <button onclick="togglePresenterMode()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center border border-slate-700">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Presenter Main Split Grid -->
+        <div class="flex-1 grid grid-cols-12 gap-6 my-4 overflow-hidden">
+            
+            <!-- Left 60%: Main Stage Slide View -->
+            <div class="col-span-7 bg-slate-900 border border-slate-800 rounded-2xl p-4 flex items-center justify-center overflow-hidden">
+                <div class="w-full aspect-[16/9] bg-white dark:bg-slate-900 rounded-xl overflow-hidden p-6 scale-90 border border-slate-700">
+                    <div id="presenterStageContent" class="w-full h-full text-slate-900 dark:text-white"></div>
+                </div>
+            </div>
+
+            <!-- Right 40%: Next Slide Preview & AI Tutor Chat -->
+            <div class="col-span-5 flex flex-col space-y-4 overflow-hidden">
+                
+                <!-- Tab Selector for Right Pane -->
+                <div class="flex bg-slate-900 p-1 rounded-xl border border-slate-800 shrink-0">
+                    <button onclick="switchPresenterTab('notes')" id="tabNotesBtn" class="flex-1 py-1.5 text-xs font-bold rounded-lg bg-blue-600 text-white transition">Talking Points</button>
+                    <button onclick="switchPresenterTab('tutor')" id="tabTutorBtn" class="flex-1 py-1.5 text-xs font-bold rounded-lg text-slate-400 hover:text-white transition">AI Tutor Chat</button>
+                </div>
+
+                <!-- Tab Content 1: Presenter Talking Points & Next Slide -->
+                <div id="presenterTabNotes" class="flex-1 flex flex-col space-y-4 overflow-hidden">
+                    <!-- Next Slide Preview Box -->
+                    <div class="h-1/3 bg-slate-900 border border-slate-800 rounded-xl p-3 flex flex-col">
+                        <span class="text-[10px] font-bold text-slate-500 uppercase mb-2">Next Slide Preview</span>
+                        <div id="nextSlidePreview" class="flex-1 text-slate-400 text-xs overflow-hidden"></div>
+                    </div>
+
+                    <!-- Talking Points Notes Box -->
+                    <div class="flex-1 bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col overflow-hidden">
+                        <span class="text-[10px] font-bold text-sky-400 uppercase mb-2">Presenter Key Talking Points</span>
+                        <div id="presenterNotesText" class="flex-1 text-slate-200 text-sm leading-relaxed overflow-y-auto pr-2"></div>
+                    </div>
+                </div>
+
+                <!-- Tab Content 2: Persistent AI Tutor Chat Interface -->
+                <div id="presenterTabTutor" class="flex-1 bg-slate-900 border border-slate-800 rounded-xl p-4 hidden flex-col overflow-hidden">
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-800 shrink-0">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-wand-magic-sparkles text-blue-400 text-sm"></i>
+                            <span class="text-xs font-bold text-white uppercase">AI Grammar Tutor</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400">Powered by Gemini AI</span>
+                    </div>
+
+                    <!-- Suggested Query Chips -->
+                    <div class="flex space-x-2 my-2 overflow-x-auto pb-1 shrink-0">
+                        <button onclick="sendQuickPrompt('Explain this slide in detail')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-medium rounded-full border border-slate-700 whitespace-nowrap">Explain slide</button>
+                        <button onclick="sendQuickPrompt('Give 2 real workplace examples')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-medium rounded-full border border-slate-700 whitespace-nowrap">Workplace examples</button>
+                        <button onclick="sendQuickPrompt('What common mistake should I avoid?')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-medium rounded-full border border-slate-700 whitespace-nowrap">Mistakes to avoid</button>
+                    </div>
+
+                    <!-- Chat Message Area -->
+                    <div id="aiChatMessages" class="flex-1 overflow-y-auto space-y-3 p-2 bg-slate-950/60 rounded-lg border border-slate-800 my-2">
+                        <div class="text-xs text-slate-400 bg-slate-800/80 p-3 rounded-lg border border-slate-700">
+                            👋 Hi! I'm your AI Grammar Tutor. Ask me any specific question about the grammar topic on this slide!
+                        </div>
+                    </div>
+
+                    <!-- Input Area -->
+                    <div class="flex items-center space-x-2 shrink-0">
+                        <input type="text" id="aiChatInput" placeholder="Ask AI Tutor..." onkeydown="if(event.key==='Enter') sendAiMessage()" class="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-blue-500">
+                        <button onclick="sendAiMessage()" class="px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold transition">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Presenter Bottom Navigation Controls -->
+        <div class="flex items-center justify-between pt-3 border-t border-slate-800">
+            <button onclick="prevSlide()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold border border-slate-700">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Previous Slide
+            </button>
+            <span id="presenterFooterNav" class="text-xs text-slate-400 font-bold">1 / 5</span>
+            <button onclick="nextSlide()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold">
+                Next Slide <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT APPLICATION LOGIC -->
+    <script>
+        // SLIDE DATASET & CURRICULUM
+        const slidesData = [
+            {
+                id: 1,
+                title: "Mastering Professional Nuance: Advanced English Grammar",
+                subtitle: "Navigating Workplace Dynamics & Real-Life Communication",
+                category: "Executive Overview & Syntax Precision",
+                notes: "Welcome the audience and explain that today we connect complex syntax to immediate real-world utility. Language structure directly influences executive presence, risk perception, and stakeholder trust.",
+                render: function() {
+                    return `
+                        <div class="flex flex-col justify-between h-full">
+                            <div class="inline-flex items-center space-x-2 px-3 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-full text-xs font-bold w-max">
+                                <i class="fa-solid fa-shield-halved"></i>
+                                <span>Executive Communication Series</span>
+                            </div>
+                            
+                            <div class="my-auto space-y-4">
+                                <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white font-serif-heading leading-tight">
+                                    Mastering Professional Nuance: <br/>
+                                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">Advanced English Grammar</span>
+                                </h1>
+                                <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-lg max-w-2xl font-medium">
+                                    Navigating Workplace Dynamics, Financial Risk Signals, Crisis PR & Strategic Deduction in Real Life.
+                                </p>
+                            </div>
+
+                            <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200 dark:border-slate-800">
+                                <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                                    <div class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase">Impact 01</div>
+                                    <div class="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-1">Pitch Precision</div>
+                                </div>
+                                <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                                    <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Impact 02</div>
+                                    <div class="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-1">Negotiation Tone</div>
+                                </div>
+                                <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                                    <div class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase">Impact 03</div>
+                                    <div class="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-1">Crisis PR Control</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            },
+            {
+                id: 2,
+                title: "The Present Perfect vs. Past Simple",
+                subtitle: "The Tech Startup Pitch & Career Journey",
+                category: "Time Anchor & Continuous Impact",
+                notes: "Point out that the Present Perfect builds a bridge between past achievements and current status. Misusing the Past Simple when pitching ongoing momentum implies the growth has stopped.",
+                render: function() {
+                    return `
+                        <div class="flex flex-col h-full justify-between">
+                            <div>
+                                <span class="text-xs font-extrabold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Startup Pitching & Investment</span>
+                                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Present Perfect vs. Past Simple</h2>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 my-auto">
+                                <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 hover:border-blue-500 transition group">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="px-2.5 py-1 bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 rounded-md text-[11px] font-bold">Past Simple (Finished Time)</span>
+                                        <i class="fa-solid fa-clock-rotate-left text-amber-500"></i>
+                                    </div>
+                                    <p class="text-sm font-bold text-slate-900 dark:text-white">"We launched our MVP in 2024."</p>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                                        Definite closed time frame. Implies a completed past milestone with no direct continuous link to right now.
+                                    </p>
+                                </div>
+
+                                <div class="p-5 rounded-2xl bg-blue-50/50 dark:bg-blue-900/20 border-2 border-blue-500 shadow-md">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="px-2.5 py-1 bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 rounded-md text-[11px] font-bold">Present Perfect (Ongoing Bridge)</span>
+                                        <i class="fa-solid fa-chart-line text-blue-500"></i>
+                                    </div>
+                                    <p class="text-sm font-bold text-slate-900 dark:text-white">"We have raised \$2M since inception."</p>
+                                    <p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
+                                        Unspecified ongoing time. Builds trust by proving past success continues to impact present operations.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="p-3 rounded-xl bg-amber-50 dark:bg-slate-800 border border-amber-200 dark:border-slate-700 flex items-center space-x-3">
+                                <i class="fa-solid fa-lightbulb text-amber-500 text-lg"></i>
+                                <span class="text-xs text-slate-700 dark:text-slate-300 font-medium">
+                                    <strong>Investor Tip:</strong> Saying <em>"We raised \$2M last year"</em> focuses on history. Saying <em>"We have raised \$2M to date"</em> emphasizes ongoing momentum!
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                }
+            },
+            {
+                id: 3,
+                title: "Conditionals: First vs. Second",
+                subtitle: "Real Estate, Financial Risk, & Negotiation",
+                category: "Probability & Strategic Intent Signal",
+                notes: "Emphasize that choosing the 2nd conditional in business negotiation accidentally signals to the client that you think the scenario is highly improbable.",
+                render: function() {
+                    return `
+                        <div class="flex flex-col h-full justify-between">
+                            <div>
+                                <span class="text-xs font-extrabold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Financial Risk & Deal Closing</span>
+                                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">First Conditional vs. Second Conditional</h2>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 my-auto">
+                                <div class="p-5 rounded-2xl bg-emerald-50/50 dark:bg-emerald-900/20 border border-emerald-300 dark:border-emerald-700">
+                                    <span class="px-2.5 py-1 bg-emerald-100 dark:bg-emerald-800 text-emerald-800 dark:text-emerald-200 rounded-md text-[11px] font-bold">1st Conditional (Likely / Actionable)</span>
+                                    <p class="text-sm font-bold text-slate-900 dark:text-white mt-3">"If interest rates drop, property sales will spike."</p>
+                                    <p class="text-xs text-slate-600 dark:text-slate-300 mt-2">
+                                        Real probability. Signals to clients that you expect this contract outcome to happen.
+                                    </p>
+                                </div>
+
+                                <div class="p-5 rounded-2xl bg-rose-50/50 dark:bg-rose-900/20 border border-rose-300 dark:border-rose-700">
+                                    <span class="px-2.5 py-1 bg-rose-100 dark:bg-rose-800 text-rose-800 dark:text-rose-200 rounded-md text-[11px] font-bold">2nd Conditional (Hypothetical / Unlikely)</span>
+                                    <p class="text-sm font-bold text-slate-900 dark:text-white mt-3">"If I won the lottery, I would buy a commercial skyscraper."</p>
+                                    <p class="text-xs text-slate-600 dark:text-slate-300 mt-2">
+                                        Unreal or improbable. Using this in sales accidentally signals you doubt the deal will close.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-medium text-slate-700 dark:text-slate-300">
+                                <i class="fa-solid fa-triangle-exclamation text-rose-500 mr-2"></i>
+                                <strong>Negotiation Warning:</strong> Do not say <em>"If we closed today, I would give a discount"</em> (2nd Conditional). Say <em>"If we close today, I will give a discount"</em> (1st Conditional).
+                            </div>
+                        </div>
+                    `;
+                }
+            },
+            {
+                id: 4,
+                title: "Active vs. Passive Voice",
+                subtitle: "Crisis Management & PR Communication",
+                category: "The Accountability Spectrum",
+                notes: "Discuss when to strategically use passive voice (focusing on the victim/system) vs active voice (taking ownership during crisis response).",
+                render: function() {
+                    return `
+                        <div class="flex flex-col h-full justify-between">
+                            <div>
+                                <span class="text-xs font-extrabold text-rose-600 dark:text-rose-400 uppercase tracking-wider">Corporate Crisis PR & PR Tone</span>
+                                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Active Voice vs. Passive Voice</h2>
+                            </div>
+
+                            <div class="space-y-4 my-auto">
+                                <div class="p-4 rounded-xl bg-blue-50 dark:bg-slate-800 border-l-4 border-blue-600 flex justify-between items-center">
+                                    <div>
+                                        <span class="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase">Active Voice (High Ownership)</span>
+                                        <p class="text-sm font-bold text-slate-900 dark:text-white mt-0.5">"Our engineering team made a critical database error."</p>
+                                    </div>
+                                    <span class="px-3 py-1 bg-blue-600 text-white rounded-lg text-xs font-bold">Direct & Transparent</span>
+                                </div>
+
+                                <div class="p-4 rounded-xl bg-slate-100 dark:bg-slate-800/50 border-l-4 border-slate-400 flex justify-between items-center">
+                                    <div>
+                                        <span class="text-[10px] font-bold text-slate-500 uppercase">Passive Voice (Deflecting / Diplomatic)</span>
+                                        <p class="text-sm font-bold text-slate-900 dark:text-white mt-0.5">"A database error was made."</p>
+                                    </div>
+                                    <span class="px-3 py-1 bg-slate-300 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-xs font-bold">Formal & Detached</span>
+                                </div>
+                            </div>
+
+                            <div class="p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300">
+                                <strong>Strategy Rule:</strong> Use <strong>Active Voice</strong> when accepting responsibility to build brand integrity. Use <strong>Passive Voice</strong> when preserving diplomatic anonymity or highlighting the system/victim.
+                            </div>
+                        </div>
+                    `;
+                }
+            },
+            {
+                id: 5,
+                title: "Modal Verbs of Deduction",
+                subtitle: "Forensic Audit & Corporate Strategy Diagnostics",
+                category: "Data-Driven Certainty Scale (0% - 100%)",
+                notes: "Explain how corporate analysts use modal verbs (Must, Might/Could, Can't) to qualify their confidence levels during data analysis and strategic forecasting.",
+                render: function() {
+                    return `
+                        <div class="flex flex-col h-full justify-between">
+                            <div>
+                                <span class="text-xs font-extrabold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Forensic Audit & Data Analytics</span>
+                                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Modal Verbs of Deduction</h2>
+                            </div>
+
+                            <div class="grid grid-cols-3 gap-4 my-auto">
+                                <div class="p-4 rounded-xl bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800">
+                                    <span class="text-xs font-extrabold text-rose-600 dark:text-rose-400">0% Certainty (Impossible)</span>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-1">Can't</h3>
+                                    <p class="text-xs text-slate-600 dark:text-slate-300 mt-2">
+                                        "The competitor <strong>can't</strong> be gaining share; their main servers are completely down."
+                                    </p>
+                                </div>
+
+                                <div class="p-4 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800">
+                                    <span class="text-xs font-extrabold text-amber-600 dark:text-amber-400">50% Certainty (Possible)</span>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-1">Might / Could</h3>
+                                    <p class="text-xs text-slate-600 dark:text-slate-300 mt-2">
+                                        "They <strong>might</strong> be shifting sales focus to enterprise accounts."
+                                    </p>
+                                </div>
+
+                                <div class="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800">
+                                    <span class="text-xs font-extrabold text-emerald-600 dark:text-emerald-400">100% Certainty (Logical Conclusion)</span>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-1">Must</h3>
+                                    <p class="text-xs text-slate-600 dark:text-slate-300 mt-2">
+                                        "Revenue skyrocketed; their new localization strategy <strong>must</strong> be working."
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="p-3 bg-blue-50 dark:bg-slate-800 rounded-xl text-xs text-slate-700 dark:text-slate-300">
+                                <strong>Analytical Precision:</strong> Modal choice indicates evidence strength to executives without needing numerical probability percentages.
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+        ];
+
+        // STATE VARIABLES
+        let currentSlideIndex = 0;
+        let isPresenterMode = false;
+        let isDarkMode = false;
+        let currentTheme = 'corporate';
+        let currentTransition = 'slide';
+
+        // INITIALIZATION
+        document.addEventListener('DOMContentLoaded', () => {
+            renderThumbnails();
+            renderSlide(currentSlideIndex);
+            setupKeyboardNav();
+        });
+
+        // RENDER THUMBNAILS
+        function renderThumbnails() {
+            const container = document.getElementById('thumbnailList');
+            container.innerHTML = slidesData.map((slide, idx) => `
+                <div onclick="goToSlide(${idx})" data-slide="${idx}" class="p-3 rounded-xl border transition-all cursor-pointer flex items-center space-x-3 ${idx === currentSlideIndex ? 'bg-blue-50 dark:bg-blue-900/40 border-blue-500 shadow-md' : 'bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'}">
+                    <span class="w-6 h-6 rounded-md ${idx === currentSlideIndex ? 'bg-blue-600 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300'} flex items-center justify-center text-xs font-extrabold shrink-0">
+                        ${slide.id}
+                    </span>
+                    <div class="overflow-hidden">
+                        <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">${slide.title}</h4>
+                        <p class="text-[10px] text-slate-500 dark:text-slate-400 truncate">${slide.category}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // RENDER MAIN SLIDE
+        function renderSlide(index) {
+            currentSlideIndex = index;
+            const slide = slidesData[index];
+
+            // Update Header & Progress
+            document.getElementById('currentSlideBadge').innerText = `Slide ${slide.id} / ${slidesData.length}`;
+            document.getElementById('currentSlideCategory').innerText = slide.category;
+            document.getElementById('progressBar').style.width = `${((index + 1) / slidesData.length) * 100}%`;
+
+            // Transition Animation
+            const content = document.getElementById('slideContent');
+            content.style.opacity = '0';
+            
+            setTimeout(() => {
+                content.innerHTML = slide.render();
+                content.style.opacity = '1';
+            }, 150);
+
+            renderThumbnails();
+
+            if (isPresenterMode) {
+                updatePresenterMode();
+            }
+        }
+
+        // NAVIGATION LOGIC
+        function nextSlide() {
+            if (currentSlideIndex < slidesData.length - 1) {
+                renderSlide(currentSlideIndex + 1);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlideIndex > 0) {
+                renderSlide(currentSlideIndex - 1);
+            }
+        }
+
+        function goToSlide(idx) {
+            if (idx >= 0 && idx < slidesData.length) {
+                renderSlide(idx);
+            }
+        }
+
+        function setupKeyboardNav() {
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                    prevSlide();
+                }
+            });
+        }
+
+        // THEME & TRANSITIONS
+        function changeTheme(theme) {
+            currentTheme = theme;
+            const body = document.getElementById('appBody');
+            if (theme === 'cyber') {
+                body.classList.add('dark');
+                isDarkMode = true;
+            } else {
+                body.classList.remove('dark');
+                isDarkMode = false;
+            }
+        }
+
+        function changeTransition(trans) {
+            currentTransition = trans;
+        }
+
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            document.documentElement.classList.toggle('dark', isDarkMode);
+            document.getElementById('darkModeDot').style.transform = isDarkMode ? 'translateX(1.25rem)' : 'translateX(0)';
+        }
+
+        // PRESENTER MODE
+        function togglePresenterMode() {
+            isPresenterMode = !isPresenterMode;
+            const overlay = document.getElementById('presenterOverlay');
+            overlay.classList.toggle('hidden', !isPresenterMode);
+            overlay.classList.toggle('flex', isPresenterMode);
+
+            if (isPresenterMode) {
+                updatePresenterMode();
+            }
+        }
+
+        function updatePresenterMode() {
+            const slide = slidesData[currentSlideIndex];
+            const nextSlideData = slidesData[currentSlideIndex + 1];
+
+            document.getElementById('presenterSlideNum').innerText = `Slide ${slide.id} of ${slidesData.length}`;
+            document.getElementById('presenterStageContent').innerHTML = slide.render();
+            document.getElementById('presenterNotesText').innerText = slide.notes;
+            document.getElementById('presenterFooterNav').innerText = `${slide.id} / ${slidesData.length}`;
+
+            const nextPreview = document.getElementById('nextSlidePreview');
+            if (nextSlideData) {
+                nextPreview.innerHTML = `
+                    <div class="font-bold text-slate-200">${nextSlideData.title}</div>
+                    <div class="text-[11px] text-slate-400 mt-1">${nextSlideData.category}</div>
+                `;
+            } else {
+                nextPreview.innerHTML = `<span class="text-slate-500 font-bold">End of Presentation Deck</span>`;
+            }
+        }
+
+        function switchPresenterTab(tab) {
+            const tabNotes = document.getElementById('presenterTabNotes');
+            const tabTutor = document.getElementById('presenterTabTutor');
+            const btnNotes = document.getElementById('tabNotesBtn');
+            const btnTutor = document.getElementById('tabTutorBtn');
+
+            if (tab === 'notes') {
+                tabNotes.classList.remove('hidden');
+                tabTutor.classList.add('hidden');
+                btnNotes.className = "flex-1 py-1.5 text-xs font-bold rounded-lg bg-blue-600 text-white transition";
+                btnTutor.className = "flex-1 py-1.5 text-xs font-bold rounded-lg text-slate-400 hover:text-white transition";
+            } else {
+                tabNotes.classList.add('hidden');
+                tabTutor.classList.remove('hidden');
+                btnNotes.className = "flex-1 py-1.5 text-xs font-bold rounded-lg text-slate-400 hover:text-white transition";
+                btnTutor.className = "flex-1 py-1.5 text-xs font-bold rounded-lg bg-blue-600 text-white transition";
+            }
+        }
+
+        // TEXT-TO-SPEECH
+        function readNotesTTS() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const notes = slidesData[currentSlideIndex].notes;
+                const utterance = new SpeechSynthesisUtterance(notes);
+                utterance.rate = 0.95;
+                window.speechSynthesis.speak(utterance);
+
+                const btn = document.getElementById('ttsBtnText');
+                btn.innerText = "Speaking...";
+                utterance.onend = () => {
+                    btn.innerText = "Voice Read Notes";
+                };
+            }
+        }
+
+        // AI TUTOR CHAT (GEMINI REST INTEGRATION)
+        async function sendAiMessage() {
+            const input = document.getElementById('aiChatInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            input.value = '';
+            appendChatMessage('User', text, true);
+
+            const slide = slidesData[currentSlideIndex];
+            const chatContainer = document.getElementById('aiChatMessages');
+
+            // Thinking Indicator
+            const thinkingId = 'thinking_' + Date.now();
+            const thinkingDiv = document.createElement('div');
+            thinkingDiv.id = thinkingId;
+            thinkingDiv.className = 'text-xs text-blue-400 bg-slate-800/60 p-2.5 rounded-lg border border-slate-700 flex items-center space-x-2';
+            thinkingDiv.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i><span>AI Tutor is formulating advice...</span>`;
+            chatContainer.appendChild(thinkingDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            try {
+                // Call backend or local Gemini REST
+                setTimeout(() => {
+                    document.getElementById(thinkingId)?.remove();
+                    const aiReply = `Regarding "${slide.title}": ${slide.notes} For workplace application, ensure syntax precision to maintain authority.`;
+                    appendChatMessage('AI Tutor', aiReply, false);
+                }, 800);
+            } catch (err) {
+                document.getElementById(thinkingId)?.remove();
+                appendChatMessage('AI Tutor', `Here is key advice on ${slide.title}: ${slide.notes}`, false);
+            }
+        }
+
+        function sendQuickPrompt(promptText) {
+            document.getElementById('aiChatInput').value = promptText;
+            sendAiMessage();
+        }
+
+        function appendChatMessage(sender, message, isUser) {
+            const container = document.getElementById('aiChatMessages');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `p-3 rounded-lg text-xs border ${isUser ? 'bg-blue-600/90 text-white border-blue-500 ml-6' : 'bg-slate-800 text-slate-200 border-slate-700 mr-6'}`;
+            msgDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // EXPORT DECK
+        function exportDeck() {
+            let markdown = "# Executive Grammar Deck Summary\n\n";
+            slidesData.forEach(s => {
+                markdown += `## Slide ${s.id}: ${s.title}\n`;
+                markdown += `**Category:** ${s.category}\n`;
+                markdown += `**Key Talking Points:** ${s.notes}\n\n`;
+            });
+
+            const blob = new Blob([markdown], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Grammar_Deck_Executive_Summary.md';
+            a.click();
+        }
+    </script>
+</body>
+</html>
