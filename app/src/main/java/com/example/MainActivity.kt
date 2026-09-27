@@ -1,7 +1,9 @@
 package com.example
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.webkit.JavascriptInterface
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
@@ -32,6 +34,17 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+class WebAppInterface(private val context: Context) {
+    @JavascriptInterface
+    fun getApiKey(): String {
+        return try {
+            BuildConfig.GEMINI_API_KEY
+        } catch (e: Exception) {
+            ""
+        }
+    }
+}
+
 @Composable
 fun WebPresentationScreen(modifier: Modifier = Modifier) {
     AndroidView(
@@ -52,6 +65,7 @@ fun WebPresentationScreen(modifier: Modifier = Modifier) {
                     mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
                     cacheMode = WebSettings.LOAD_DEFAULT
                 }
+                addJavascriptInterface(WebAppInterface(context), "AndroidBridge")
                 webViewClient = WebViewClient()
                 webChromeClient = WebChromeClient()
                 loadUrl("file:///android_asset/index.html")
