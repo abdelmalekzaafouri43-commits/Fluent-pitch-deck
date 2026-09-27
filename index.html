@@ -79,12 +79,12 @@
 </head>
 <body class="h-full bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-100 antialiased overflow-hidden transition-colors duration-300" id="appBody">
 
-    <div class="flex h-screen w-screen overflow-hidden">
+    <div class="flex h-screen w-screen overflow-hidden relative">
 
         <!-- DASHBOARD SIDEBAR (ALWAYS ON THE LEFT OF THE SCREEN) -->
-        <aside id="sidebar" class="w-80 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col z-30 transition-all duration-300 shadow-xl shrink-0">
+        <aside id="sidebar" class="w-72 lg:w-80 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col z-30 transition-all duration-300 shadow-xl shrink-0 absolute lg:relative inset-y-0 left-0">
             <!-- Sidebar Header -->
-            <div class="p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+            <div class="p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
                 <div class="flex items-center space-x-3">
                     <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
                         <i class="fa-solid fa-graduation-cap text-lg"></i>
@@ -94,6 +94,9 @@
                         <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Executive Communication</p>
                     </div>
                 </div>
+                <button onclick="toggleSidebar()" class="lg:hidden text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 rounded-lg">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
             </div>
 
             <!-- Slide Thumbnails List -->
@@ -150,11 +153,16 @@
         </aside>
 
         <!-- MAIN PRESENTATION STAGE & AI TUTOR AREA -->
-        <main class="flex-1 flex flex-col h-full bg-slate-200/60 dark:bg-slate-950 relative overflow-hidden">
+        <main class="flex-1 flex flex-col h-full bg-slate-200/60 dark:bg-slate-950 relative overflow-hidden min-w-0">
             
             <!-- Top Controls Header -->
-            <header class="h-14 px-6 border-b border-slate-200/80 dark:border-slate-800/80 flex items-center justify-between bg-white/50 dark:bg-slate-900/50 backdrop-blur-md z-10">
+            <header class="h-14 px-4 sm:px-6 border-b border-slate-200/80 dark:border-slate-800/80 flex items-center justify-between bg-white/50 dark:bg-slate-900/50 backdrop-blur-md z-10 shrink-0">
                 <div class="flex items-center space-x-3">
+                    <!-- Dashboard Sidebar Toggle Button (Mobile/Tablet) -->
+                    <button onclick="toggleSidebar()" class="lg:hidden p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-800 rounded-xl transition" title="Toggle Dashboard">
+                        <i class="fa-solid fa-bars text-sm"></i>
+                    </button>
+
                     <span id="currentSlideBadge" class="px-2.5 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 rounded-md text-xs font-bold">
                         Slide 1 / 5
                     </span>
@@ -166,7 +174,7 @@
                 <!-- Header Actions -->
                 <div class="flex items-center space-x-3">
                     <!-- AI Tutor Panel Toggle Button -->
-                    <button onclick="toggleMainAiPanel()" id="mainAiToggleBtn" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs sm:text-sm font-extrabold rounded-xl flex items-center space-x-2 shadow-lg shadow-blue-500/20 transition active:scale-95">
+                    <button onclick="toggleMainAiPanel()" id="mainAiToggleBtn" class="px-3.5 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs sm:text-sm font-extrabold rounded-xl flex items-center space-x-2 shadow-lg shadow-blue-500/20 transition active:scale-95">
                         <i class="fa-solid fa-wand-magic-sparkles text-sm"></i>
                         <span>AI Tutor Chat</span>
                     </button>
@@ -182,12 +190,12 @@
                 </div>
             </header>
 
-            <!-- MAIN CONTENT GRID: SLIDE STAGE (LEFT) + AI TUTOR CHAT (RIGHT) -->
-            <div class="flex-1 flex overflow-hidden p-6 gap-6 relative">
+            <!-- MAIN CONTENT AREA: SLIDE STAGE (LEFT) + AI TUTOR CHAT (RIGHT OR OVERLAY) -->
+            <div class="flex-1 flex overflow-hidden p-3 sm:p-6 gap-4 sm:gap-6 relative">
                 
                 <!-- 16:9 SLIDE CANVAS CONTAINER -->
-                <div class="flex-1 flex items-center justify-center relative overflow-hidden">
-                    <div id="slideFrame" class="w-full max-w-5xl aspect-[16/9] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200/80 dark:border-slate-800/80 overflow-hidden relative flex flex-col p-8 sm:p-12 transition-all duration-300">
+                <div class="flex-1 min-w-0 flex items-center justify-center relative overflow-hidden">
+                    <div id="slideFrame" class="w-full max-w-5xl aspect-[16/9] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200/80 dark:border-slate-800/80 overflow-hidden relative flex flex-col p-5 sm:p-12 transition-all duration-300">
                         
                         <!-- Slide Content Injector -->
                         <div id="slideContent" class="w-full h-full flex flex-col justify-between transition-all">
@@ -197,48 +205,48 @@
                     </div>
                 </div>
 
-                <!-- SIDE-BY-SIDE AI TUTOR CHAT PANEL (ENLARGED & PROMINENT) -->
-                <div id="mainAiPanel" class="w-full max-w-lg lg:w-[480px] xl:w-[540px] 2xl:w-[600px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl flex flex-col shrink-0 overflow-hidden transition-all duration-300">
+                <!-- AI TUTOR CHAT PANEL (CLEAR, ALWAYS VISIBLE & RESPONSIVE) -->
+                <div id="mainAiPanel" class="absolute top-3 bottom-3 right-3 sm:right-6 z-40 w-[calc(100%-1.5rem)] sm:w-[420px] 2xl:w-[460px] 2xl:relative 2xl:top-auto 2xl:bottom-auto 2xl:right-auto 2xl:inset-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl flex flex-col shrink-0 overflow-hidden transition-all duration-300">
                     
                     <!-- AI Panel Header -->
-                    <div class="p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 flex items-center justify-between">
+                    <div class="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 flex items-center justify-between shrink-0">
                         <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold shadow-md shadow-blue-500/20">
+                            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold shadow-md shadow-blue-500/20 shrink-0">
                                 <i class="fa-solid fa-wand-magic-sparkles text-base"></i>
                             </div>
-                            <div>
-                                <h3 class="text-sm sm:text-base font-black text-slate-900 dark:text-white uppercase tracking-wider">AI Grammar Tutor</h3>
-                                <p id="aiActiveSlideLabel" class="text-xs text-slate-500 dark:text-slate-400 font-medium truncate max-w-[240px]">Slide 1: Mastering Professional Nuance</p>
+                            <div class="min-w-0">
+                                <h3 class="text-sm font-black text-slate-900 dark:text-white uppercase tracking-wider truncate">AI Grammar Tutor</h3>
+                                <p id="aiActiveSlideLabel" class="text-xs text-slate-500 dark:text-slate-400 font-medium truncate">Slide 1: Executive Overview</p>
                             </div>
                         </div>
-                        <button onclick="toggleMainAiPanel()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition">
+                        <button onclick="toggleMainAiPanel()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition shrink-0" title="Close AI Tutor">
                             <i class="fa-solid fa-xmark text-base"></i>
                         </button>
                     </div>
 
                     <!-- Quick Prompt Chips -->
-                    <div class="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-100/60 dark:bg-slate-950/60">
-                        <div class="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2.5 flex items-center space-x-1.5">
-                            <i class="fa-solid fa-bolt text-amber-500 text-xs"></i>
+                    <div class="p-3 sm:p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-100/60 dark:bg-slate-950/60 shrink-0">
+                        <div class="text-[11px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2 flex items-center space-x-1.5">
+                            <i class="fa-solid fa-bolt text-amber-500"></i>
                             <span>Quick AI Prompts</span>
                         </div>
                         <div class="flex flex-wrap gap-2">
-                            <button onclick="sendQuickPrompt('Explain this slide in detail')" class="px-3.5 py-2 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-200/90 dark:border-slate-700 rounded-xl text-xs sm:text-sm font-bold shadow-sm transition hover:scale-[1.02]">
+                            <button onclick="sendQuickPrompt('Explain this slide in detail')" class="px-3 py-1.5 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-200/90 dark:border-slate-700 rounded-xl text-xs font-bold shadow-sm transition hover:scale-[1.02]">
                                 💡 Explain slide
                             </button>
-                            <button onclick="sendQuickPrompt('Give 2 real workplace examples')" class="px-3.5 py-2 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-200/90 dark:border-slate-700 rounded-xl text-xs sm:text-sm font-bold shadow-sm transition hover:scale-[1.02]">
+                            <button onclick="sendQuickPrompt('Give 2 real workplace examples')" class="px-3 py-1.5 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-200/90 dark:border-slate-700 rounded-xl text-xs font-bold shadow-sm transition hover:scale-[1.02]">
                                 💼 Workplace examples
                             </button>
-                            <button onclick="sendQuickPrompt('What common mistake should I avoid?')" class="px-3.5 py-2 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-200/90 dark:border-slate-700 rounded-xl text-xs sm:text-sm font-bold shadow-sm transition hover:scale-[1.02]">
+                            <button onclick="sendQuickPrompt('What common mistake should I avoid?')" class="px-3 py-1.5 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-200/90 dark:border-slate-700 rounded-xl text-xs font-bold shadow-sm transition hover:scale-[1.02]">
                                 ⚠️ Avoid mistakes
                             </button>
                         </div>
                     </div>
 
                     <!-- Chat Messages List -->
-                    <div id="mainAiChatMessages" class="flex-1 overflow-y-auto p-5 space-y-4 bg-slate-50/50 dark:bg-slate-950/50">
-                        <div class="p-4 rounded-2xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 dark:from-blue-900/30 dark:to-indigo-900/30 border border-blue-200 dark:border-blue-800/50 text-sm leading-relaxed text-slate-800 dark:text-slate-200 shadow-sm">
-                            <div class="flex items-center space-x-2 font-black text-blue-600 dark:text-blue-400 mb-1.5 text-sm uppercase tracking-wider">
+                    <div id="mainAiChatMessages" class="flex-1 overflow-y-auto p-4 space-y-3.5 bg-slate-50/50 dark:bg-slate-950/50">
+                        <div class="p-4 rounded-2xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 dark:from-blue-900/30 dark:to-indigo-900/30 border border-blue-200 dark:border-blue-800/50 text-xs sm:text-sm leading-relaxed text-slate-800 dark:text-slate-200 shadow-sm">
+                            <div class="flex items-center space-x-2 font-black text-blue-600 dark:text-blue-400 mb-1.5 text-xs uppercase tracking-wider">
                                 <i class="fa-solid fa-hand-wave"></i>
                                 <span>Welcome to AI Tutor!</span>
                             </div>
@@ -247,9 +255,9 @@
                     </div>
 
                     <!-- Chat Input Area -->
-                    <div class="p-4 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center space-x-3">
-                        <input type="text" id="mainAiInput" placeholder="Ask AI Tutor a question..." onkeydown="if(event.key==='Enter') sendMainAiMessage()" class="flex-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3 text-sm text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white dark:focus:bg-slate-900 transition">
-                        <button onclick="sendMainAiMessage()" class="w-12 h-12 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl text-sm font-extrabold transition flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/25 active:scale-95">
+                    <div class="p-3 sm:p-4 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center space-x-2.5 shrink-0">
+                        <input type="text" id="mainAiInput" placeholder="Ask AI Tutor a question..." onkeydown="if(event.key==='Enter') sendMainAiMessage()" class="flex-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white dark:focus:bg-slate-900 transition">
+                        <button onclick="sendMainAiMessage()" class="w-10 h-10 sm:w-11 sm:h-11 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl text-xs sm:text-sm font-extrabold transition flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/25 active:scale-95">
                             <i class="fa-solid fa-paper-plane"></i>
                         </button>
                     </div>
@@ -259,7 +267,7 @@
             </div>
 
             <!-- Bottom Progress Bar -->
-            <div class="w-full h-1.5 bg-slate-300 dark:bg-slate-800">
+            <div class="w-full h-1.5 bg-slate-300 dark:bg-slate-800 shrink-0">
                 <div id="progressBar" class="h-full bg-blue-600 transition-all duration-300" style="width: 20%;"></div>
             </div>
         </main>
@@ -381,28 +389,28 @@
                                 <span>Executive Communication Series</span>
                             </div>
                             
-                            <div class="my-auto space-y-4">
-                                <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white font-serif-heading leading-tight">
+                            <div class="my-auto space-y-3 sm:space-y-4">
+                                <h1 class="text-2xl sm:text-4xl 2xl:text-5xl font-extrabold text-slate-900 dark:text-white font-serif-heading leading-tight">
                                     Mastering Professional Nuance: <br/>
                                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">Advanced English Grammar</span>
                                 </h1>
-                                <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-lg max-w-2xl font-medium">
+                                <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-base max-w-2xl font-medium">
                                     Navigating Workplace Dynamics, Financial Risk Signals, Crisis PR & Strategic Deduction in Real Life.
                                 </p>
                             </div>
 
-                            <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200 dark:border-slate-800">
-                                <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-                                    <div class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase">Impact 01</div>
-                                    <div class="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-1">Pitch Precision</div>
+                            <div class="grid grid-cols-3 gap-3 sm:gap-4 pt-4 sm:pt-6 border-t border-slate-200 dark:border-slate-800">
+                                <div class="p-2.5 sm:p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                                    <div class="text-[10px] sm:text-xs font-bold text-blue-600 dark:text-blue-400 uppercase">Impact 01</div>
+                                    <div class="text-[11px] sm:text-xs font-semibold text-slate-800 dark:text-slate-200 mt-0.5 sm:mt-1">Pitch Precision</div>
                                 </div>
-                                <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-                                    <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Impact 02</div>
-                                    <div class="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-1">Negotiation Tone</div>
+                                <div class="p-2.5 sm:p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                                    <div class="text-[10px] sm:text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Impact 02</div>
+                                    <div class="text-[11px] sm:text-xs font-semibold text-slate-800 dark:text-slate-200 mt-0.5 sm:mt-1">Negotiation Tone</div>
                                 </div>
-                                <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-                                    <div class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase">Impact 03</div>
-                                    <div class="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-1">Crisis PR Control</div>
+                                <div class="p-2.5 sm:p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                                    <div class="text-[10px] sm:text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase">Impact 03</div>
+                                    <div class="text-[11px] sm:text-xs font-semibold text-slate-800 dark:text-slate-200 mt-0.5 sm:mt-1">Crisis PR Control</div>
                                 </div>
                             </div>
                         </div>
@@ -420,36 +428,36 @@
                         <div class="flex flex-col h-full justify-between">
                             <div>
                                 <span class="text-xs font-extrabold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Startup Pitching & Investment</span>
-                                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Present Perfect vs. Past Simple</h2>
+                                <h2 class="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Present Perfect vs. Past Simple</h2>
                             </div>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 my-auto">
-                                <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 hover:border-blue-500 transition group">
-                                    <div class="flex items-center justify-between mb-3">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 my-auto">
+                                <div class="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 hover:border-blue-500 transition group">
+                                    <div class="flex items-center justify-between mb-2 sm:mb-3">
                                         <span class="px-2.5 py-1 bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 rounded-md text-[11px] font-bold">Past Simple (Finished Time)</span>
                                         <i class="fa-solid fa-clock-rotate-left text-amber-500"></i>
                                     </div>
-                                    <p class="text-sm font-bold text-slate-900 dark:text-white">"We launched our MVP in 2024."</p>
-                                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                                    <p class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">"We launched our MVP in 2024."</p>
+                                    <p class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mt-1.5 sm:mt-2 leading-relaxed">
                                         Definite closed time frame. Implies a completed past milestone with no direct continuous link to right now.
                                     </p>
                                 </div>
 
-                                <div class="p-5 rounded-2xl bg-blue-50/50 dark:bg-blue-900/20 border-2 border-blue-500 shadow-md">
-                                    <div class="flex items-center justify-between mb-3">
+                                <div class="p-4 sm:p-5 rounded-2xl bg-blue-50/50 dark:bg-blue-900/20 border-2 border-blue-500 shadow-md">
+                                    <div class="flex items-center justify-between mb-2 sm:mb-3">
                                         <span class="px-2.5 py-1 bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 rounded-md text-[11px] font-bold">Present Perfect (Ongoing Bridge)</span>
                                         <i class="fa-solid fa-chart-line text-blue-500"></i>
                                     </div>
-                                    <p class="text-sm font-bold text-slate-900 dark:text-white">"We have raised \$2M since inception."</p>
-                                    <p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
+                                    <p class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">"We have raised \$2M since inception."</p>
+                                    <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 mt-1.5 sm:mt-2 leading-relaxed">
                                         Unspecified ongoing time. Builds trust by proving past success continues to impact present operations.
                                     </p>
                                 </div>
                             </div>
 
                             <div class="p-3 rounded-xl bg-amber-50 dark:bg-slate-800 border border-amber-200 dark:border-slate-700 flex items-center space-x-3">
-                                <i class="fa-solid fa-lightbulb text-amber-500 text-lg"></i>
-                                <span class="text-xs text-slate-700 dark:text-slate-300 font-medium">
+                                <i class="fa-solid fa-lightbulb text-amber-500 text-lg shrink-0"></i>
+                                <span class="text-[11px] sm:text-xs text-slate-700 dark:text-slate-300 font-medium">
                                     <strong>Investor Tip:</strong> Saying <em>"We raised \$2M last year"</em> focuses on history. Saying <em>"We have raised \$2M to date"</em> emphasizes ongoing momentum!
                                 </span>
                             </div>
@@ -468,28 +476,28 @@
                         <div class="flex flex-col h-full justify-between">
                             <div>
                                 <span class="text-xs font-extrabold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Financial Risk & Deal Closing</span>
-                                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">First Conditional vs. Second Conditional</h2>
+                                <h2 class="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">First Conditional vs. Second Conditional</h2>
                             </div>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 my-auto">
-                                <div class="p-5 rounded-2xl bg-emerald-50/50 dark:bg-emerald-900/20 border border-emerald-300 dark:border-emerald-700">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 my-auto">
+                                <div class="p-4 sm:p-5 rounded-2xl bg-emerald-50/50 dark:bg-emerald-900/20 border border-emerald-300 dark:border-emerald-700">
                                     <span class="px-2.5 py-1 bg-emerald-100 dark:bg-emerald-800 text-emerald-800 dark:text-emerald-200 rounded-md text-[11px] font-bold">1st Conditional (Likely / Actionable)</span>
-                                    <p class="text-sm font-bold text-slate-900 dark:text-white mt-3">"If interest rates drop, property sales will spike."</p>
-                                    <p class="text-xs text-slate-600 dark:text-slate-300 mt-2">
+                                    <p class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mt-2 sm:mt-3">"If interest rates drop, property sales will spike."</p>
+                                    <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 mt-1.5 sm:mt-2">
                                         Real probability. Signals to clients that you expect this contract outcome to happen.
                                     </p>
                                 </div>
 
-                                <div class="p-5 rounded-2xl bg-rose-50/50 dark:bg-rose-900/20 border border-rose-300 dark:border-rose-700">
+                                <div class="p-4 sm:p-5 rounded-2xl bg-rose-50/50 dark:bg-rose-900/20 border border-rose-300 dark:border-rose-700">
                                     <span class="px-2.5 py-1 bg-rose-100 dark:bg-rose-800 text-rose-800 dark:text-rose-200 rounded-md text-[11px] font-bold">2nd Conditional (Hypothetical / Unlikely)</span>
-                                    <p class="text-sm font-bold text-slate-900 dark:text-white mt-3">"If I won the lottery, I would buy a commercial skyscraper."</p>
-                                    <p class="text-xs text-slate-600 dark:text-slate-300 mt-2">
+                                    <p class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mt-2 sm:mt-3">"If I won the lottery, I would buy a skyscraper."</p>
+                                    <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 mt-1.5 sm:mt-2">
                                         Unreal or improbable. Using this in sales accidentally signals you doubt the deal will close.
                                     </p>
                                 </div>
                             </div>
 
-                            <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-medium text-slate-700 dark:text-slate-300">
+                            <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-[11px] sm:text-xs font-medium text-slate-700 dark:text-slate-300">
                                 <i class="fa-solid fa-triangle-exclamation text-rose-500 mr-2"></i>
                                 <strong>Negotiation Warning:</strong> Do not say <em>"If we closed today, I would give a discount"</em> (2nd Conditional). Say <em>"If we close today, I will give a discount"</em> (1st Conditional).
                             </div>
@@ -508,29 +516,29 @@
                         <div class="flex flex-col h-full justify-between">
                             <div>
                                 <span class="text-xs font-extrabold text-rose-600 dark:text-rose-400 uppercase tracking-wider">Corporate Crisis PR & PR Tone</span>
-                                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Active Voice vs. Passive Voice</h2>
+                                <h2 class="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Active Voice vs. Passive Voice</h2>
                             </div>
 
-                            <div class="space-y-4 my-auto">
-                                <div class="p-4 rounded-xl bg-blue-50 dark:bg-slate-800 border-l-4 border-blue-600 flex justify-between items-center">
+                            <div class="space-y-3 sm:space-y-4 my-auto">
+                                <div class="p-3.5 sm:p-4 rounded-xl bg-blue-50 dark:bg-slate-800 border-l-4 border-blue-600 flex justify-between items-center">
                                     <div>
                                         <span class="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase">Active Voice (High Ownership)</span>
-                                        <p class="text-sm font-bold text-slate-900 dark:text-white mt-0.5">"Our engineering team made a critical database error."</p>
+                                        <p class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mt-0.5">"Our engineering team made a critical database error."</p>
                                     </div>
-                                    <span class="px-3 py-1 bg-blue-600 text-white rounded-lg text-xs font-bold">Direct & Transparent</span>
+                                    <span class="px-2.5 py-1 bg-blue-600 text-white rounded-lg text-[10px] sm:text-xs font-bold shrink-0 ml-2">Direct & Transparent</span>
                                 </div>
 
-                                <div class="p-4 rounded-xl bg-slate-100 dark:bg-slate-800/50 border-l-4 border-slate-400 flex justify-between items-center">
+                                <div class="p-3.5 sm:p-4 rounded-xl bg-slate-100 dark:bg-slate-800/50 border-l-4 border-slate-400 flex justify-between items-center">
                                     <div>
                                         <span class="text-[10px] font-bold text-slate-500 uppercase">Passive Voice (Deflecting / Diplomatic)</span>
-                                        <p class="text-sm font-bold text-slate-900 dark:text-white mt-0.5">"A database error was made."</p>
+                                        <p class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mt-0.5">"A database error was made."</p>
                                     </div>
-                                    <span class="px-3 py-1 bg-slate-300 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-xs font-bold">Formal & Detached</span>
+                                    <span class="px-2.5 py-1 bg-slate-300 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-[10px] sm:text-xs font-bold shrink-0 ml-2">Formal & Detached</span>
                                 </div>
                             </div>
 
-                            <div class="p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300">
-                                <strong>Strategy Rule:</strong> Use <strong>Active Voice</strong> when accepting responsibility to build brand integrity. Use <strong>Passive Voice</strong> when preserving diplomatic anonymity or highlighting the system/victim.
+                            <div class="p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 text-[11px] sm:text-xs text-slate-600 dark:text-slate-300">
+                                <strong>Strategy Rule:</strong> Use <strong>Active Voice</strong> when accepting responsibility to build brand integrity. Use <strong>Passive Voice</strong> when preserving diplomatic anonymity or highlighting the system.
                             </div>
                         </div>
                     `;
@@ -547,36 +555,36 @@
                         <div class="flex flex-col h-full justify-between">
                             <div>
                                 <span class="text-xs font-extrabold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Forensic Audit & Data Analytics</span>
-                                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Modal Verbs of Deduction</h2>
+                                <h2 class="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Modal Verbs of Deduction</h2>
                             </div>
 
-                            <div class="grid grid-cols-3 gap-4 my-auto">
-                                <div class="p-4 rounded-xl bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800">
-                                    <span class="text-xs font-extrabold text-rose-600 dark:text-rose-400">0% Certainty (Impossible)</span>
-                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-1">Can't</h3>
-                                    <p class="text-xs text-slate-600 dark:text-slate-300 mt-2">
-                                        "The competitor <strong>can't</strong> be gaining share; their main servers are completely down."
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 my-auto">
+                                <div class="p-3 sm:p-4 rounded-xl bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800">
+                                    <span class="text-[10px] sm:text-xs font-extrabold text-rose-600 dark:text-rose-400">0% Certainty (Impossible)</span>
+                                    <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-0.5">Can't</h3>
+                                    <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 mt-1">
+                                        "The competitor <strong>can't</strong> be gaining share; their servers are completely down."
                                     </p>
                                 </div>
 
-                                <div class="p-4 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800">
-                                    <span class="text-xs font-extrabold text-amber-600 dark:text-amber-400">50% Certainty (Possible)</span>
-                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-1">Might / Could</h3>
-                                    <p class="text-xs text-slate-600 dark:text-slate-300 mt-2">
+                                <div class="p-3 sm:p-4 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800">
+                                    <span class="text-[10px] sm:text-xs font-extrabold text-amber-600 dark:text-amber-400">50% Certainty (Possible)</span>
+                                    <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-0.5">Might / Could</h3>
+                                    <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 mt-1">
                                         "They <strong>might</strong> be shifting sales focus to enterprise accounts."
                                     </p>
                                 </div>
 
-                                <div class="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800">
-                                    <span class="text-xs font-extrabold text-emerald-600 dark:text-emerald-400">100% Certainty (Logical Conclusion)</span>
-                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-1">Must</h3>
-                                    <p class="text-xs text-slate-600 dark:text-slate-300 mt-2">
+                                <div class="p-3 sm:p-4 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800">
+                                    <span class="text-[10px] sm:text-xs font-extrabold text-emerald-600 dark:text-emerald-400">100% Certainty (Logical Conclusion)</span>
+                                    <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-0.5">Must</h3>
+                                    <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 mt-1">
                                         "Revenue skyrocketed; their new localization strategy <strong>must</strong> be working."
                                     </p>
                                 </div>
                             </div>
 
-                            <div class="p-3 bg-blue-50 dark:bg-slate-800 rounded-xl text-xs text-slate-700 dark:text-slate-300">
+                            <div class="p-3 bg-blue-50 dark:bg-slate-800 rounded-xl text-[11px] sm:text-xs text-slate-700 dark:text-slate-300">
                                 <strong>Analytical Precision:</strong> Modal choice indicates evidence strength to executives without needing numerical probability percentages.
                             </div>
                         </div>
@@ -592,17 +600,39 @@
         let currentTheme = 'corporate';
         let currentTransition = 'slide';
         let isMainAiOpen = true;
+        let isSidebarOpen = true;
 
         // INITIALIZATION
         document.addEventListener('DOMContentLoaded', () => {
             renderThumbnails();
             renderSlide(currentSlideIndex);
             setupKeyboardNav();
+
+            // Responsive sidebar initial check
+            if (window.innerWidth < 1024) {
+                isSidebarOpen = false;
+                const sidebar = document.getElementById('sidebar');
+                if (sidebar) sidebar.classList.add('hidden');
+            }
         });
+
+        // TOGGLE DASHBOARD SIDEBAR (ALWAYS ANCHORED ON THE LEFT)
+        function toggleSidebar() {
+            isSidebarOpen = !isSidebarOpen;
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar) {
+                if (isSidebarOpen) {
+                    sidebar.classList.remove('hidden');
+                } else {
+                    sidebar.classList.add('hidden');
+                }
+            }
+        }
 
         // RENDER THUMBNAILS
         function renderThumbnails() {
             const container = document.getElementById('thumbnailList');
+            if (!container) return;
             container.innerHTML = slidesData.map((slide, idx) => `
                 <div onclick="goToSlide(${idx})" data-slide="${idx}" class="p-3 rounded-xl border transition-all cursor-pointer flex items-center space-x-3 ${idx === currentSlideIndex ? 'bg-blue-50 dark:bg-blue-900/40 border-blue-500 shadow-md' : 'bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'}">
                     <span class="w-6 h-6 rounded-md ${idx === currentSlideIndex ? 'bg-blue-600 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300'} flex items-center justify-center text-xs font-extrabold shrink-0">
@@ -622,21 +652,25 @@
             const slide = slidesData[index];
 
             // Update Header, Progress, & AI Active Slide Label
-            document.getElementById('currentSlideBadge').innerText = `Slide ${slide.id} / ${slidesData.length}`;
-            document.getElementById('currentSlideCategory').innerText = slide.category;
-            document.getElementById('progressBar').style.width = `${((index + 1) / slidesData.length) * 100}%`;
-            
+            const badge = document.getElementById('currentSlideBadge');
+            const category = document.getElementById('currentSlideCategory');
+            const progress = document.getElementById('progressBar');
             const activeLabel = document.getElementById('aiActiveSlideLabel');
+
+            if (badge) badge.innerText = `Slide ${slide.id} / ${slidesData.length}`;
+            if (category) category.innerText = slide.category;
+            if (progress) progress.style.width = `${((index + 1) / slidesData.length) * 100}%`;
             if (activeLabel) activeLabel.innerText = `Slide ${slide.id}: ${slide.title}`;
 
             // Transition Animation
             const content = document.getElementById('slideContent');
-            content.style.opacity = '0';
-            
-            setTimeout(() => {
-                content.innerHTML = slide.render();
-                content.style.opacity = '1';
-            }, 150);
+            if (content) {
+                content.style.opacity = '0';
+                setTimeout(() => {
+                    content.innerHTML = slide.render();
+                    content.style.opacity = '1';
+                }, 150);
+            }
 
             renderThumbnails();
 
@@ -650,14 +684,20 @@
             isMainAiOpen = !isMainAiOpen;
             const panel = document.getElementById('mainAiPanel');
             const btn = document.getElementById('mainAiToggleBtn');
-            if (isMainAiOpen) {
-                panel.classList.remove('hidden');
-                panel.classList.add('flex');
-                btn.className = "px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs sm:text-sm font-extrabold rounded-xl flex items-center space-x-2 shadow-lg shadow-blue-500/20 transition active:scale-95";
-            } else {
-                panel.classList.add('hidden');
-                panel.classList.remove('flex');
-                btn.className = "px-4 py-2 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs sm:text-sm font-bold rounded-xl flex items-center space-x-2 shadow-sm transition";
+            if (panel) {
+                if (isMainAiOpen) {
+                    panel.classList.remove('hidden');
+                    panel.classList.add('flex');
+                    if (btn) {
+                        btn.className = "px-3.5 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs sm:text-sm font-extrabold rounded-xl flex items-center space-x-2 shadow-lg shadow-blue-500/20 transition active:scale-95";
+                    }
+                } else {
+                    panel.classList.add('hidden');
+                    panel.classList.remove('flex');
+                    if (btn) {
+                        btn.className = "px-3.5 py-1.5 sm:px-4 sm:py-2 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs sm:text-sm font-bold rounded-xl flex items-center space-x-2 shadow-sm transition";
+                    }
+                }
             }
         }
 
@@ -682,6 +722,7 @@
 
         function setupKeyboardNav() {
             document.addEventListener('keydown', (e) => {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
                 if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
                     nextSlide();
                 } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
@@ -710,15 +751,18 @@
         function toggleDarkMode() {
             isDarkMode = !isDarkMode;
             document.documentElement.classList.toggle('dark', isDarkMode);
-            document.getElementById('darkModeDot').style.transform = isDarkMode ? 'translateX(1.25rem)' : 'translateX(0)';
+            const dot = document.getElementById('darkModeDot');
+            if (dot) dot.style.transform = isDarkMode ? 'translateX(1.25rem)' : 'translateX(0)';
         }
 
         // PRESENTER MODE
         function togglePresenterMode() {
             isPresenterMode = !isPresenterMode;
             const overlay = document.getElementById('presenterOverlay');
-            overlay.classList.toggle('hidden', !isPresenterMode);
-            overlay.classList.toggle('flex', isPresenterMode);
+            if (overlay) {
+                overlay.classList.toggle('hidden', !isPresenterMode);
+                overlay.classList.toggle('flex', isPresenterMode);
+            }
 
             if (isPresenterMode) {
                 updatePresenterMode();
@@ -729,19 +773,26 @@
             const slide = slidesData[currentSlideIndex];
             const nextSlideData = slidesData[currentSlideIndex + 1];
 
-            document.getElementById('presenterSlideNum').innerText = `Slide ${slide.id} of ${slidesData.length}`;
-            document.getElementById('presenterStageContent').innerHTML = slide.render();
-            document.getElementById('presenterNotesText').innerText = slide.notes;
-            document.getElementById('presenterFooterNav').innerText = `${slide.id} / ${slidesData.length}`;
+            const pNum = document.getElementById('presenterSlideNum');
+            const pStage = document.getElementById('presenterStageContent');
+            const pNotes = document.getElementById('presenterNotesText');
+            const pFooter = document.getElementById('presenterFooterNav');
+            const pNext = document.getElementById('nextSlidePreview');
 
-            const nextPreview = document.getElementById('nextSlidePreview');
-            if (nextSlideData) {
-                nextPreview.innerHTML = `
-                    <div class="font-bold text-slate-200">${nextSlideData.title}</div>
-                    <div class="text-[11px] text-slate-400 mt-1">${nextSlideData.category}</div>
-                `;
-            } else {
-                nextPreview.innerHTML = `<span class="text-slate-500 font-bold">End of Presentation Deck</span>`;
+            if (pNum) pNum.innerText = `Slide ${slide.id} of ${slidesData.length}`;
+            if (pStage) pStage.innerHTML = slide.render();
+            if (pNotes) pNotes.innerText = slide.notes;
+            if (pFooter) pFooter.innerText = `${slide.id} / ${slidesData.length}`;
+
+            if (pNext) {
+                if (nextSlideData) {
+                    pNext.innerHTML = `
+                        <div class="font-bold text-slate-200">${nextSlideData.title}</div>
+                        <div class="text-[11px] text-slate-400 mt-1">${nextSlideData.category}</div>
+                    `;
+                } else {
+                    pNext.innerHTML = `<span class="text-slate-500 font-bold">End of Presentation Deck</span>`;
+                }
             }
         }
 
@@ -752,15 +803,15 @@
             const btnTutor = document.getElementById('tabTutorBtn');
 
             if (tab === 'notes') {
-                tabNotes.classList.remove('hidden');
-                tabTutor.classList.add('hidden');
-                btnNotes.className = "flex-1 py-1.5 text-xs font-bold rounded-lg bg-blue-600 text-white transition";
-                btnTutor.className = "flex-1 py-1.5 text-xs font-bold rounded-lg text-slate-400 hover:text-white transition";
+                if (tabNotes) tabNotes.classList.remove('hidden');
+                if (tabTutor) tabTutor.classList.add('hidden');
+                if (btnNotes) btnNotes.className = "flex-1 py-1.5 text-xs font-bold rounded-lg bg-blue-600 text-white transition";
+                if (btnTutor) btnTutor.className = "flex-1 py-1.5 text-xs font-bold rounded-lg text-slate-400 hover:text-white transition";
             } else {
-                tabNotes.classList.add('hidden');
-                tabTutor.classList.remove('hidden');
-                btnNotes.className = "flex-1 py-1.5 text-xs font-bold rounded-lg text-slate-400 hover:text-white transition";
-                btnTutor.className = "flex-1 py-1.5 text-xs font-bold rounded-lg bg-blue-600 text-white transition";
+                if (tabNotes) tabNotes.classList.add('hidden');
+                if (tabTutor) tabTutor.classList.remove('hidden');
+                if (btnNotes) btnNotes.className = "flex-1 py-1.5 text-xs font-bold rounded-lg text-slate-400 hover:text-white transition";
+                if (btnTutor) btnTutor.className = "flex-1 py-1.5 text-xs font-bold rounded-lg bg-blue-600 text-white transition";
             }
         }
 
@@ -774,9 +825,9 @@
                 window.speechSynthesis.speak(utterance);
 
                 const btn = document.getElementById('ttsBtnText');
-                btn.innerText = "Speaking...";
+                if (btn) btn.innerText = "Speaking...";
                 utterance.onend = () => {
-                    btn.innerText = "Voice Read Notes";
+                    if (btn) btn.innerText = "Voice Read Notes";
                 };
             }
         }
@@ -784,6 +835,7 @@
         // AI TUTOR CHAT (MAIN STAGE CHAT)
         function sendMainAiMessage() {
             const input = document.getElementById('mainAiInput');
+            if (!input) return;
             const text = input.value.trim();
             if (!text) return;
 
@@ -792,6 +844,7 @@
 
             const slide = slidesData[currentSlideIndex];
             const chatContainer = document.getElementById('mainAiChatMessages');
+            if (!chatContainer) return;
 
             // Thinking indicator
             const thinkingId = 'thinking_main_' + Date.now();
@@ -820,18 +873,22 @@
                 }
 
                 appendMainChatMessage('AI Tutor', responseText, false);
-            }, 600);
+            }, 500);
         }
 
         function sendQuickPrompt(promptText) {
-            document.getElementById('mainAiInput').value = promptText;
-            sendMainAiMessage();
+            const input = document.getElementById('mainAiInput');
+            if (input) {
+                input.value = promptText;
+                sendMainAiMessage();
+            }
         }
 
         function appendMainChatMessage(sender, message, isUser) {
             const container = document.getElementById('mainAiChatMessages');
+            if (!container) return;
             const msgDiv = document.createElement('div');
-            msgDiv.className = `p-4 rounded-2xl text-sm leading-relaxed border ${isUser ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-blue-500/50 ml-8 shadow-md' : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border-slate-200 dark:border-slate-700 mr-8 shadow-md'}`;
+            msgDiv.className = `p-3.5 rounded-2xl text-xs sm:text-sm leading-relaxed border ${isUser ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-blue-500/50 ml-6 sm:ml-8 shadow-md' : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border-slate-200 dark:border-slate-700 mr-6 sm:mr-8 shadow-md'}`;
             msgDiv.innerHTML = `<div class="flex items-center space-x-2 mb-1.5"><i class="fa-solid ${isUser ? 'fa-user text-blue-200' : 'fa-robot text-blue-500'} text-xs"></i><strong class="font-extrabold ${isUser ? 'text-blue-100' : 'text-blue-600 dark:text-blue-400'} text-xs uppercase tracking-wider">${sender}:</strong></div><div>${message}</div>`;
             container.appendChild(msgDiv);
             container.scrollTop = container.scrollHeight;
@@ -840,6 +897,7 @@
         // PRESENTER OVERLAY AI CHAT
         function sendAiMessage() {
             const input = document.getElementById('aiChatInput');
+            if (!input) return;
             const text = input.value.trim();
             if (!text) return;
 
@@ -848,6 +906,7 @@
 
             const slide = slidesData[currentSlideIndex];
             const chatContainer = document.getElementById('aiChatMessages');
+            if (!chatContainer) return;
 
             const thinkingId = 'thinking_' + Date.now();
             const thinkingDiv = document.createElement('div');
@@ -861,13 +920,14 @@
                 document.getElementById(thinkingId)?.remove();
                 const aiReply = `Regarding "${slide.title}": ${slide.notes}`;
                 appendChatMessage('AI Tutor', aiReply, false);
-            }, 600);
+            }, 500);
         }
 
         function appendChatMessage(sender, message, isUser) {
             const container = document.getElementById('aiChatMessages');
+            if (!container) return;
             const msgDiv = document.createElement('div');
-            msgDiv.className = `p-3.5 rounded-xl text-sm leading-relaxed border ${isUser ? 'bg-blue-600/90 text-white border-blue-500 ml-6 shadow-sm' : 'bg-slate-800 text-slate-200 border-slate-700 mr-6 shadow-sm'}`;
+            msgDiv.className = `p-3 rounded-xl text-xs sm:text-sm leading-relaxed border ${isUser ? 'bg-blue-600/90 text-white border-blue-500 ml-6 shadow-sm' : 'bg-slate-800 text-slate-200 border-slate-700 mr-6 shadow-sm'}`;
             msgDiv.innerHTML = `<strong class="block mb-1 text-xs font-extrabold uppercase ${isUser ? 'text-blue-100' : 'text-blue-400'}">${sender}:</strong> ${message}`;
             container.appendChild(msgDiv);
             container.scrollTop = container.scrollHeight;
