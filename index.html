@@ -236,52 +236,52 @@
                     </div>
                 </div>
 
-                <!-- AI TUTOR CHAT PANEL (CLEARLY VISIBLE, PROMINENT & HIGH CONTRAST) -->
-                <div id="mainAiPanel" class="absolute top-2 bottom-2 right-2 sm:right-4 z-50 w-[calc(100%-1rem)] sm:w-[320px] md:w-[340px] xl:w-[360px] bg-white dark:bg-slate-900 border-2 border-blue-500/30 dark:border-blue-500/40 rounded-2xl shadow-2xl flex flex-col shrink-0 overflow-hidden transition-all duration-300">
+                <!-- AI TUTOR CHAT PANEL (SLEEK FROSTED GLASSMORPHISM DESIGN) -->
+                <div id="mainAiPanel" class="absolute top-2 bottom-2 right-2 sm:right-4 z-50 w-[calc(100%-1rem)] sm:w-[320px] md:w-[340px] xl:w-[360px] bg-white/80 dark:bg-slate-900/85 backdrop-blur-xl border-2 border-blue-500/30 dark:border-blue-400/30 rounded-2xl shadow-2xl shadow-blue-950/20 flex flex-col shrink-0 overflow-hidden transition-all duration-300">
                     
-                    <!-- AI Panel Header -->
-                    <div class="p-3 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800/80 flex items-center justify-between shrink-0">
+                    <!-- AI Panel Header (Glass Gradient) -->
+                    <div class="p-3 border-b border-slate-200/60 dark:border-slate-800/80 bg-gradient-to-r from-blue-500/15 via-indigo-500/10 to-transparent dark:from-blue-900/40 dark:to-slate-800/50 backdrop-blur-md flex items-center justify-between shrink-0">
                         <div class="flex items-center space-x-2.5 min-w-0">
-                            <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold shadow-md shadow-blue-500/20 shrink-0">
+                            <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold shadow-md shadow-blue-500/25 shrink-0 border border-white/20">
                                 <i class="fa-solid fa-wand-magic-sparkles text-xs"></i>
                             </div>
                             <div class="min-w-0">
                                 <h3 class="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider truncate">AI Grammar Tutor</h3>
-                                <p id="aiActiveSlideLabel" class="text-[11px] text-slate-500 dark:text-slate-400 font-medium truncate">Slide 1: Executive Overview</p>
+                                <p id="aiActiveSlideLabel" class="text-[11px] text-slate-600 dark:text-slate-300 font-medium truncate">Slide 1: Executive Overview</p>
                             </div>
                         </div>
                         <div class="flex items-center space-x-1 shrink-0">
-                            <button onclick="toggleApiKeyModal()" class="text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 p-1.5 rounded-lg hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition" title="API Key Settings">
+                            <button onclick="toggleApiKeyModal()" class="text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 p-1.5 rounded-lg hover:bg-white/50 dark:hover:bg-slate-700/60 transition" title="API Key Settings">
                                 <i class="fa-solid fa-gear text-xs"></i>
                             </button>
-                            <button onclick="toggleMainAiPanel()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 rounded-lg hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition" title="Close AI Tutor">
+                            <button onclick="toggleMainAiPanel()" class="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 p-1.5 rounded-lg hover:bg-white/50 dark:hover:bg-slate-700/60 transition" title="Close AI Tutor">
                                 <i class="fa-solid fa-xmark text-sm"></i>
                             </button>
                         </div>
                     </div>
 
-                    <!-- Quick Prompt Chips -->
-                    <div class="p-2.5 border-b border-slate-200 dark:border-slate-800 bg-slate-100/80 dark:bg-slate-950/80 shrink-0">
-                        <div class="text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-1.5 flex items-center space-x-1">
+                    <!-- Quick Prompt Chips (Frosted Glass Row) -->
+                    <div class="p-2.5 border-b border-slate-200/60 dark:border-slate-800/80 bg-white/40 dark:bg-slate-950/60 backdrop-blur-md shrink-0">
+                        <div class="text-[10px] font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 flex items-center space-x-1">
                             <i class="fa-solid fa-bolt text-amber-500 text-[10px]"></i>
                             <span>Quick AI Prompts</span>
                         </div>
                         <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none">
-                            <button onclick="sendQuickPrompt('Explain the simple grammar rule for this slide')" class="px-2.5 py-1 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-300 dark:border-slate-700 rounded-lg text-[11px] font-bold shadow-xs whitespace-nowrap transition hover:scale-[1.02] cursor-pointer">
+                            <button onclick="sendQuickPrompt('Explain the simple grammar rule for this slide')" class="px-2.5 py-1 bg-white/90 dark:bg-slate-800/90 hover:bg-blue-50/90 dark:hover:bg-slate-700/90 text-slate-800 dark:text-slate-100 border border-slate-300/80 dark:border-slate-700/80 rounded-lg text-[11px] font-bold shadow-xs whitespace-nowrap transition hover:scale-[1.02] cursor-pointer backdrop-blur-xs">
                                 📖 Easy Rule
                             </button>
-                            <button onclick="sendQuickPrompt('Show 2 simple correct vs incorrect examples')" class="px-2.5 py-1 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-300 dark:border-slate-700 rounded-lg text-[11px] font-bold shadow-xs whitespace-nowrap transition hover:scale-[1.02] cursor-pointer">
+                            <button onclick="sendQuickPrompt('Show 2 simple correct vs incorrect examples')" class="px-2.5 py-1 bg-white/90 dark:bg-slate-800/90 hover:bg-blue-50/90 dark:hover:bg-slate-700/90 text-slate-800 dark:text-slate-100 border border-slate-300/80 dark:border-slate-700/80 rounded-lg text-[11px] font-bold shadow-xs whitespace-nowrap transition hover:scale-[1.02] cursor-pointer backdrop-blur-xs">
                                 💡 Easy Examples
                             </button>
-                            <button onclick="sendQuickPrompt('What is the simplest rule of thumb to remember?')" class="px-2.5 py-1 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-300 dark:border-slate-700 rounded-lg text-[11px] font-bold shadow-xs whitespace-nowrap transition hover:scale-[1.02] cursor-pointer">
+                            <button onclick="sendQuickPrompt('What is the simplest rule of thumb to remember?')" class="px-2.5 py-1 bg-white/90 dark:bg-slate-800/90 hover:bg-blue-50/90 dark:hover:bg-slate-700/90 text-slate-800 dark:text-slate-100 border border-slate-300/80 dark:border-slate-700/80 rounded-lg text-[11px] font-bold shadow-xs whitespace-nowrap transition hover:scale-[1.02] cursor-pointer backdrop-blur-xs">
                                 🎯 Rule of Thumb
                             </button>
                         </div>
                     </div>
 
                     <!-- Chat Messages List -->
-                    <div id="mainAiChatMessages" class="flex-1 min-h-0 overflow-y-auto p-3 space-y-3 bg-slate-50/80 dark:bg-slate-950/80 text-xs sm:text-sm">
-                        <div class="p-3 rounded-xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 dark:from-blue-900/40 dark:to-indigo-900/40 border border-blue-200 dark:border-blue-800 text-xs leading-relaxed text-slate-800 dark:text-slate-200 shadow-xs">
+                    <div id="mainAiChatMessages" class="flex-1 min-h-0 overflow-y-auto p-3 space-y-3 bg-slate-50/40 dark:bg-slate-950/40 backdrop-blur-sm text-xs sm:text-sm">
+                        <div class="p-3.5 rounded-xl bg-gradient-to-br from-blue-500/15 to-indigo-500/15 dark:from-blue-900/40 dark:to-indigo-900/40 backdrop-blur-md border border-blue-200/80 dark:border-blue-800/80 text-xs leading-relaxed text-slate-800 dark:text-slate-200 shadow-sm">
                             <div class="flex items-center space-x-1.5 font-black text-blue-600 dark:text-blue-400 mb-1 text-xs uppercase tracking-wider">
                                 <i class="fa-solid fa-graduation-cap text-xs"></i>
                                 <span>Welcome to AI Grammar Tutor!</span>
@@ -290,10 +290,10 @@
                         </div>
                     </div>
 
-                    <!-- Prominent, High-Contrast Chat Input Area -->
-                    <div class="p-3 border-t-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center space-x-2 shrink-0 z-10">
-                        <input type="text" id="mainAiInput" placeholder="Ask AI Tutor a question..." onkeydown="if(event.key==='Enter') sendMainAiMessage()" class="flex-1 bg-slate-100 dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-600 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 font-medium outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 transition">
-                        <button onclick="sendMainAiMessage()" class="px-3.5 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl text-xs font-extrabold transition flex items-center space-x-1.5 shrink-0 shadow-md shadow-blue-500/25 active:scale-95 cursor-pointer">
+                    <!-- Prominent Frosted Chat Input Area -->
+                    <div class="p-3 border-t-2 border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md flex items-center space-x-2 shrink-0 z-10">
+                        <input type="text" id="mainAiInput" placeholder="Ask AI Tutor a question..." onkeydown="if(event.key==='Enter') sendMainAiMessage()" class="flex-1 bg-white/90 dark:bg-slate-800/90 border-2 border-slate-300/80 dark:border-slate-600/80 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 font-medium outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 transition shadow-xs">
+                        <button onclick="sendMainAiMessage()" class="px-3.5 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl text-xs font-extrabold transition flex items-center space-x-1.5 shrink-0 shadow-md shadow-blue-500/25 active:scale-95 cursor-pointer border border-white/20">
                             <span>Send</span>
                             <i class="fa-solid fa-paper-plane text-xs"></i>
                         </button>
@@ -1044,49 +1044,154 @@
         function generateFallbackResponse(text, slide) {
             const lower = text.toLowerCase();
             
-            if (slide.id === 2 || lower.includes('perfect') || lower.includes('past')) {
-                return `📖 **Easy Grammar Rule:**\n` +
-                `Use **Past Simple** (*verb + ed*) for time that is completely finished (*yesterday, in 2024*).\n` +
-                `Use **Present Perfect** (*have/has + past participle*) for time connected to NOW (*this week, so far, since 2020*).\n\n` +
+            // Priority 1: Match specific user topic or keyword queries directly!
+            if (lower.includes('perfect') || lower.includes('past simple') || lower.includes('have been') || lower.includes('since') || lower.includes('already') || lower.includes('yesterday')) {
+                return `📖 **Easy Grammar Rule (Present Perfect vs. Past Simple):**\n` +
+                `• Use **Past Simple** (*verb + ed*) for completed actions at a specific time in the past (*yesterday, in 2023*).\n` +
+                `• Use **Present Perfect** (*have/has + past participle*) for actions connected to NOW (*so far, this week, since 2020*).\n\n` +
                 `💡 **Easy Examples:**\n` +
-                `• ❌ *"We have launched our app yesterday."*\n` +
-                `• ✅ *"We launched our app yesterday."* (Yesterday is completely finished!)\n` +
-                `• ✅ *"We have launched 3 apps so far."* (Time is still open today!)\n\n` +
-                `🎯 **Rule of Thumb:** If you state a specific past time (*yesterday, last month, 2 hours ago*), use Past Simple!`;
-            } else if (slide.id === 3 || lower.includes('conditional') || lower.includes('if')) {
-                return `📖 **Easy Grammar Rule:**\n` +
-                `• **1st Conditional** (*If + present, will + verb*): Use for real, likely future plans.\n` +
-                `• **2nd Conditional** (*If + past, would + verb*): Use for imaginary, unlikely situations.\n\n` +
+                `• ❌ *"I have sent the report yesterday."*\n` +
+                `• ✅ *"I sent the report yesterday."* (Yesterday is completely finished!)\n` +
+                `• ✅ *"I have sent three reports today."* (Time period is still open today!)\n\n` +
+                `🎯 **Rule of Thumb:** If you mention a specific past time (*yesterday, last month, 2 hours ago*), always use Past Simple!`;
+            } 
+            
+            if (lower.includes('conditional') || lower.includes(' if ') || lower.startsWith('if') || lower.includes('would') || lower.includes('suppose')) {
+                return `📖 **Easy Grammar Rule (Conditionals & If-Sentences):**\n` +
+                `• **1st Conditional** (*If + Present, Will + Verb*): Real, likely future events or business offers.\n` +
+                `• **2nd Conditional** (*If + Past, Would + Verb*): Imaginary, unreal, or hypothetical scenarios.\n\n` +
                 `💡 **Easy Examples:**\n` +
-                `• 💼 **Real Plan:** *"If you sign today, we will give you a 10% discount."*\n` +
-                `• 💭 **Imaginary:** *"If I won $1 Million, I would buy a island."*\n\n` +
-                `🎯 **Rule of Thumb:** In deals and sales, say **"If we do X, we will do Y"** (1st Conditional) so customers know you mean business!`;
-            } else if (slide.id === 4 || lower.includes('active') || lower.includes('passive') || lower.includes('voice')) {
-                return `📖 **Easy Grammar Rule:**\n` +
-                `• **Active Voice:** Person doing the action comes first (*Subject + Verb*).\n` +
-                `• **Passive Voice:** Thing receiving the action comes first (*Object + is/was + Verb*).\n\n` +
+                `• 💼 **Real Offer:** *"If we sign today, we will get a 10% discount."*\n` +
+                `• 💭 **Hypothetical:** *"If I had unlimited budget, I would buy a helicopter."*\n\n` +
+                `🎯 **Rule of Thumb:** Use **"If we do X, we WILL do Y"** (1st Conditional) when making real commitments and business deals!`;
+            } 
+            
+            if (lower.includes('active') || lower.includes('passive') || lower.includes('voice') || lower.includes('by whom')) {
+                return `📖 **Easy Grammar Rule (Active vs. Passive Voice):**\n` +
+                `• **Active Voice:** The subject performs the action (*Subject + Verb + Object*).\n` +
+                `• **Passive Voice:** The focus is on the action/recipient (*Object + is/was + Verb*).\n\n` +
                 `💡 **Easy Examples:**\n` +
-                `• ✅ **Active:** *"Our team solved the problem."* (Clear, direct, accountable)\n` +
-                `• 🔹 **Passive:** *"The problem was solved."* (Focuses on the event, hides who did it)\n\n` +
-                `🎯 **Rule of Thumb:** Use Active Voice 90% of the time to keep your messages clear, short, and persuasive!`;
-            } else if (slide.id === 5 || lower.includes('modal') || lower.includes('deduction') || lower.includes('must')) {
-                return `📖 **Easy Grammar Rule:**\n` +
-                `Modal verbs show how sure you are about a fact:\n` +
-                `• **Must** = 100% Certain (Logical deduction)\n` +
-                `• **Might / Could** = 50% Possible (Maybe)\n` +
-                `• **Can't** = 0% Impossible (No way)\n\n` +
+                `• ✅ **Active:** *"Our engineering team solved the critical issue."* (Clear, direct, accountable)\n` +
+                `• 🔹 **Passive:** *"The issue was solved."* (Focuses on result, conceals who did it)\n\n` +
+                `🎯 **Rule of Thumb:** Use Active Voice 90% of the time in work emails and slides to sound strong, direct, and clear!`;
+            } 
+            
+            if (lower.includes('modal') || lower.includes('must') || lower.includes('might') || lower.includes('could') || lower.includes('can') || lower.includes('should') || lower.includes('have to') || lower.includes('deduction')) {
+                return `📖 **Easy Grammar Rule (Modal Verbs of Certainty):**\n` +
+                `Modal verbs express how confident you are about a fact or statement:\n` +
+                `• **Must** = 100% Certain (Logical deduction: *"He must be at work"*)\n` +
+                `• **Might / Could** = 50% Possible (*"Sales might increase next quarter"*)\n` +
+                `• **Can't** = 0% Impossible (*"That claim can't be correct"*)\n\n` +
                 `💡 **Easy Examples:**\n` +
-                `• 💯 *"His car is outside, so he **must** be at work."*\n` +
-                `• ❓ *"Sales **might** go up next month."*\n` +
-                `• 🚫 *"That **can't** be correct!"*\n\n` +
+                `• 💯 *"The car is outside, so she **must** be inside."*\n` +
+                `• ❓ *"Our project timeline **might** change slightly."*\n` +
+                `• 🚫 *"He **can't** be finished already, he just started!"*\n\n` +
+                `🎯 **Rule of Thumb:** **Must** = 100% sure, **Might** = 50% sure, **Can't** = 0% sure!`;
+            }
+
+            if (lower.includes('article') || lower.includes(' a ') || lower.includes(' an ') || lower.includes(' the ') || lower.includes('a vs an')) {
+                return `📖 **Easy Grammar Rule (Articles: A, An, The):**\n` +
+                `• Use **A / An** for general, non-specific nouns (*a meeting, an email*). Use **An** before vowel SOUNDS.\n` +
+                `• Use **The** for specific items that both the speaker and listener already know (*the project, the manager*).\n\n` +
+                `💡 **Easy Examples:**\n` +
+                `• ❌ *"I have a idea about the app."* -> ✅ *"I have **an** idea about the app."*\n` +
+                `• ❌ *"I met a client. A client was impressed."* -> ✅ *"I met a client. **The** client was impressed."*\n\n` +
+                `🎯 **Rule of Thumb:** Use **A/An** for first time mentioning something, and **The** when referring back to it!`;
+            }
+
+            if (lower.includes('preposition') || lower.includes(' in ') || lower.includes(' on ') || lower.includes(' at ') || lower.includes('by') || lower.includes('time') || lower.includes('place')) {
+                return `📖 **Easy Grammar Rule (Prepositions: In, On, At):**\n` +
+                `• **At** = Specific clock time or exact point (*at 9:00 AM, at the office door*).\n` +
+                `• **On** = Days, dates, and surfaces (*on Monday, on October 15th, on the slide*).\n` +
+                `• **In** = Months, years, seasons, or enclosed spaces (*in May, in 2026, in the meeting room*).\n\n` +
+                `💡 **Easy Examples:**\n` +
+                `• ❌ *"The call is in Friday at October."*\n` +
+                `• ✅ *"The call is **on** Friday **in** October **at** 3 PM."*\n\n` +
+                `🎯 **Rule of Thumb:** **At** for exact time, **On** for dates/days, **In** for long time periods!`;
+            }
+
+            if (lower.includes('email') || lower.includes('formal') || lower.includes('tone') || lower.includes('polite') || lower.includes('greeting') || lower.includes('regards')) {
+                return `📖 **Easy Grammar Rule (Professional Business Writing):**\n` +
+                `Keep emails concise, polite, and action-driven. State your purpose clearly in the first sentence.\n\n` +
+                `💡 **Easy Examples:**\n` +
+                `• ❌ *"I am sending this email because I wanted to ask if you could..."* (Wordy)\n` +
+                `• ✅ *"I am writing to request your approval for the Q3 proposal."* (Direct & polite)\n\n` +
+                `🎯 **Rule of Thumb:** Always conclude with a clear call-to-action (*"Please confirm if 2 PM works for you."*)!`;
+            }
+
+            if (lower.includes('vocab') || lower.includes('word') || lower.includes('synonym') || lower.includes('meaning') || lower.includes('difference') || lower.includes('nuance')) {
+                return `📖 **Easy Grammar Rule (Professional Vocabulary & Action Verbs):**\n` +
+                `Replace vague words with strong, precise action verbs to communicate with executive authority.\n\n` +
+                `💡 **Easy Examples:**\n` +
+                `• 🔹 *"We made the design better."* -> ✅ *"We **optimized** the user interface."*\n` +
+                `• 🔹 *"We talked about the problem."* -> ✅ *"We **addressed** the issue."*\n\n` +
+                `🎯 **Rule of Thumb:** Use single strong action verbs (*optimize, accelerate, execute*) instead of verb phrases (*make better, speed up*)!`;
+            }
+
+            if (lower.includes('practice') || lower.includes('test') || lower.includes('quiz') || lower.includes('exercise') || lower.includes('question')) {
+                return `📖 **Quick Grammar Practice Quiz:**\n` +
+                `Which sentence is grammatically correct for a business presentation?\n\n` +
+                `💡 **Quiz Question:**\n` +
+                `1️⃣ *"We have completed the audit last Tuesday."*\n` +
+                `2️⃣ *"We completed the audit last Tuesday."*\n\n` +
+                `🎯 **Answer:** Option **2** is correct! Because *last Tuesday* is a finished past time, use Past Simple (*completed*). Option 1 uses Present Perfect incorrectly with a finished time phrase!`;
+            }
+
+            if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey') || lower.includes('help') || lower.includes('tutor') || lower.includes('who are you')) {
+                return `📖 **Welcome! I am your AI English Grammar Tutor!**\n` +
+                `I help you master executive English grammar rules, professional nuance, and practical workplace communication.\n\n` +
+                `💡 **You can ask me questions like:**\n` +
+                `• *"Explain Present Perfect vs Past Simple"* \n` +
+                `• *"How do I write polite business emails?"*\n` +
+                `• *"When do I use 'in', 'on', or 'at'?"*\n` +
+                `• *"Give me a quick practice quiz!"*\n\n` +
+                `🎯 **Rule of Thumb:** Ask me any grammar topic, or tap any slide to learn specific grammar rules!`;
+            }
+
+            // Priority 2: Fallback for Quick Prompts ("Explain the simple grammar rule for this slide") or slide-context queries!
+            if (slide.id === 2 || lower.includes('slide 2')) {
+                return `📖 **Easy Grammar Rule for Slide 2 (Present Perfect vs. Past Simple):**\n` +
+                `• Use **Past Simple** (*verb + ed*) for finished time (*yesterday, in 2024*).\n` +
+                `• Use **Present Perfect** (*have/has + past participle*) for open/connected time (*so far, this week*).\n\n` +
+                `💡 **Easy Examples:**\n` +
+                `• ❌ *"We have launched our product yesterday."*\n` +
+                `• ✅ *"We launched our product yesterday."* (Finished time!)\n` +
+                `• ✅ *"We have launched 3 products so far."* (Open time!)\n\n` +
+                `🎯 **Rule of Thumb:** Finished time = Past Simple! Open time = Present Perfect!`;
+            } else if (slide.id === 3 || lower.includes('slide 3')) {
+                return `📖 **Easy Grammar Rule for Slide 3 (Conditionals in Negotiations):**\n` +
+                `• **1st Conditional** (*If + present, will + verb*): Real plans and promises.\n` +
+                `• **2nd Conditional** (*If + past, would + verb*): Imaginary or hypothetical situations.\n\n` +
+                `💡 **Easy Examples:**\n` +
+                `• 💼 **Real Plan:** *"If you sign today, we will give you 10% off."*\n` +
+                `• 💭 **Imaginary:** *"If I owned the company, I would double salaries."*\n\n` +
+                `🎯 **Rule of Thumb:** Use 1st Conditional (*If we do X, we will do Y*) for firm deals!`;
+            } else if (slide.id === 4 || lower.includes('slide 4')) {
+                return `📖 **Easy Grammar Rule for Slide 4 (Active vs. Passive Voice):**\n` +
+                `• **Active Voice:** Subject does the action (*The team solved it*).\n` +
+                `• **Passive Voice:** Subject receives the action (*The problem was solved*).\n\n` +
+                `💡 **Easy Examples:**\n` +
+                `• ✅ **Active:** *"Our team resolved the delay."* (Clear and responsible)\n` +
+                `• 🔹 **Passive:** *"The delay was resolved."* (Hides responsibility)\n\n` +
+                `🎯 **Rule of Thumb:** Use Active Voice 90% of the time for direct, persuasive messaging!`;
+            } else if (slide.id === 5 || lower.includes('slide 5')) {
+                return `📖 **Easy Grammar Rule for Slide 5 (Modal Verbs of Deduction):**\n` +
+                `• **Must** = 100% Certain (*"It must be true"*)\n` +
+                `• **Might / Could** = 50% Possible (*"It might work"*)\n` +
+                `• **Can't** = 0% Impossible (*"That can't be right"*)\n\n` +
+                `💡 **Easy Examples:**\n` +
+                `• 💯 *"His laptop is open, so he **must** be working."*\n` +
+                `• ❓ *"Prices **might** drop next month."*\n` +
+                `• 🚫 *"That **can't** be the correct calculation."*\n\n` +
                 `🎯 **Rule of Thumb:** **Must** = 100% sure, **Might** = 50% sure, **Can't** = 0% sure!`;
             } else {
-                return `📖 **Easy Grammar Rule for ${slide.title}:**\n` +
-                `Clear language structure helps you communicate directly, confidently, and accurately.\n\n` +
+                return `📖 **Easy Grammar Rule for "${text}":**\n` +
+                `Regarding your topic about **"${text}"** on Slide ${slide.id} (*${slide.title}*):\n` +
+                `In professional English grammar, clear sentence structure, correct verb tense, and active voice make your communication strong and unambiguous.\n\n` +
                 `💡 **Easy Examples:**\n` +
-                `• ✅ *"Our team delivers projects on schedule."* (Direct & clear)\n` +
-                `• ❌ *"Projects are generally executed without delay by us."* (Wordy)\n\n` +
-                `🎯 **Rule of Thumb:** Keep sentences simple, direct, and focused on the main action!`;
+                `• ✅ *"We present our findings directly and clearly."*\n` +
+                `• ❌ *"Findings are presented without direct clarity by us."*\n\n` +
+                `🎯 **Rule of Thumb:** Keep your subject and action verb together at the beginning of the sentence!`;
             }
         }
 
@@ -1125,73 +1230,78 @@
 
             const apiKey = getGeminiApiKey();
 
-            const systemPrompt = `You are a friendly, encouraging AI English Grammar Tutor. Your goal is to explain grammar rules in the simplest, clearest way possible with easy examples.
+            const systemPrompt = `You are a friendly, encouraging AI English Grammar Tutor.
+Your goal is to answer the user's specific question or theme directly and accurately.
 
 ALWAYS STRUCTURE YOUR RESPONSE AS:
-1. 📖 **Easy Grammar Rule**: State the core grammar rule in 1-2 simple sentences.
-2. 💡 **Easy Examples**: Provide 2 simple examples (e.g., ✅ Correct vs ❌ Incorrect or simple workplace sentences).
+1. 📖 **Easy Grammar Rule**: Answer their question directly with the core rule in 1-2 simple sentences.
+2. 💡 **Easy Examples**: Provide 2 simple examples (e.g., ✅ Correct vs ❌ Incorrect or practical workplace sentences).
 3. 🎯 **Easy Rule of Thumb**: Give 1 memorable, short tip to remember this rule easily.
 
-CURRENT SLIDE TOPIC: Slide ${slide.id} - "${slide.title}" (${slide.category})
+CURRENT SLIDE CONTEXT: Slide ${slide.id} - "${slide.title}" (${slide.category})
 SLIDE NOTES: "${slide.notes}"
 
-User Question: "${text}"
+USER'S SPECIFIC QUESTION OR THEME: "${text}"
 
-Keep response friendly, simple, clean Markdown, and under 160 words.`;
+Address the user's question or theme directly first! Keep response simple, friendly, clean Markdown, and under 160 words.`;
 
             if (apiKey) {
-                try {
-                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=${apiKey}`;
-                    const response = await fetch(endpoint, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [
-                                { role: 'user', parts: [{ text: `${systemPrompt}\n\nUSER QUESTION: ${text}` }] }
-                            ]
-                        })
-                    });
+                const endpoints = [
+                    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=${apiKey}`,
+                    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:streamGenerateContent?alt=sse&key=${apiKey}`
+                ];
 
-                    if (!response.ok) {
-                        throw new Error(`API HTTP error ${response.status}`);
-                    }
+                for (const endpoint of endpoints) {
+                    try {
+                        const response = await fetch(endpoint, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                contents: [
+                                    { role: 'user', parts: [{ text: `${systemPrompt}\n\nUSER QUESTION: ${text}` }] }
+                                ]
+                            })
+                        });
 
-                    const reader = response.body.getReader();
-                    const decoder = new TextDecoder("utf-8");
-                    let fullText = '';
-                    let buffer = '';
+                        if (!response.ok) continue;
 
-                    while (true) {
-                        const { done, value } = await reader.read();
-                        if (done) break;
+                        const reader = response.body.getReader();
+                        const decoder = new TextDecoder("utf-8");
+                        let fullText = '';
+                        let buffer = '';
 
-                        buffer += decoder.decode(value, { stream: true });
-                        const lines = buffer.split('\n');
-                        buffer = lines.pop() || '';
+                        while (true) {
+                            const { done, value } = await reader.read();
+                            if (done) break;
 
-                        for (const line of lines) {
-                            const trimmed = line.trim();
-                            if (trimmed.startsWith('data:')) {
-                                const jsonStr = trimmed.substring(5).trim();
-                                if (jsonStr === '[DONE]') continue;
-                                try {
-                                    const parsed = JSON.parse(jsonStr);
-                                    const chunkText = parsed?.candidates?.[0]?.content?.parts?.[0]?.text;
-                                    if (chunkText) {
-                                        fullText += chunkText;
-                                        if (typingSpan) typingSpan.style.display = 'none';
-                                        contentDiv.innerHTML = formatMarkdownToHtml(fullText);
-                                        chatContainer.scrollTop = chatContainer.scrollHeight;
-                                    }
-                                } catch(e) {}
+                            buffer += decoder.decode(value, { stream: true });
+                            const lines = buffer.split('\n');
+                            buffer = lines.pop() || '';
+
+                            for (const line of lines) {
+                                const trimmed = line.trim();
+                                if (trimmed.startsWith('data:')) {
+                                    const jsonStr = trimmed.substring(5).trim();
+                                    if (jsonStr === '[DONE]') continue;
+                                    try {
+                                        const parsed = JSON.parse(jsonStr);
+                                        const chunkText = parsed?.candidates?.[0]?.content?.parts?.[0]?.text;
+                                        if (chunkText) {
+                                            fullText += chunkText;
+                                            if (typingSpan) typingSpan.style.display = 'none';
+                                            contentDiv.innerHTML = formatMarkdownToHtml(fullText);
+                                            chatContainer.scrollTop = chatContainer.scrollHeight;
+                                        }
+                                    } catch(e) {}
+                                }
                             }
                         }
-                    }
 
-                    if (typingSpan) typingSpan.remove();
-                    if (fullText.trim()) return;
-                } catch (err) {
-                    console.warn("Live Gemini stream unavailable, using streaming fallback:", err);
+                        if (typingSpan) typingSpan.remove();
+                        if (fullText.trim()) return;
+                    } catch (err) {
+                        console.warn("Live Gemini stream endpoint attempted:", err);
+                    }
                 }
             }
 
