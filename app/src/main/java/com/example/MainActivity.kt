@@ -22,7 +22,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED)
         enableEdgeToEdge()
 
         setContent {
@@ -51,9 +50,6 @@ fun WebPresentationScreen(modifier: Modifier = Modifier) {
     AndroidView(
         factory = { context ->
             WebView(context).apply {
-                // Software rendering layer to bypass Mesa render node errors in headless environments
-                setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-
                 settings.apply {
                     javaScriptEnabled = true
                     domStorageEnabled = true
