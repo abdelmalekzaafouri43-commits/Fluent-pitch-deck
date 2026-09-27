@@ -267,9 +267,36 @@
 
             </div>
 
-            <!-- Bottom Progress Bar -->
-            <div class="w-full h-1.5 bg-slate-300 dark:bg-slate-800 shrink-0">
-                <div id="progressBar" class="h-full bg-blue-600 transition-all duration-300" style="width: 20%;"></div>
+            <!-- Bottom Interactive Progress Bar -->
+            <div id="progressBarContainer" class="w-full relative shrink-0 bg-slate-300 dark:bg-slate-800/80 h-2.5 hover:h-4 transition-all duration-200 cursor-pointer select-none">
+                
+                <!-- Active Progress Fill -->
+                <div id="progressBar" class="h-full bg-gradient-to-r from-blue-600 to-indigo-600 transition-all duration-300 shadow-md relative" style="width: 20%;">
+                    <div class="absolute right-0 top-0 bottom-0 w-2 bg-white/40 animate-pulse"></div>
+                </div>
+
+                <!-- Segment Hit Areas & Tick Dividers -->
+                <div id="progressSegments" class="absolute inset-0 flex divide-x divide-white/20 dark:divide-slate-900/40 z-10">
+                    <!-- Rendered dynamically in JS -->
+                </div>
+
+                <!-- Floating Hover Tooltip -->
+                <div id="progressTooltip" class="absolute bottom-full mb-2 hidden -translate-x-1/2 z-50 pointer-events-none transition-all duration-150">
+                    <div class="bg-slate-900/95 dark:bg-slate-900/95 text-white text-xs rounded-xl p-3 shadow-2xl border border-slate-700/80 backdrop-blur-md min-w-[210px] max-w-xs">
+                        <div class="flex items-center space-x-2 text-[10px] font-bold text-blue-400 uppercase tracking-wider mb-1" id="tooltipSlideBadge">
+                            <i class="fa-solid fa-layer-group text-blue-400"></i>
+                            <span>Slide 1 / 5</span>
+                        </div>
+                        <div id="tooltipSlideTitle" class="font-extrabold text-white text-xs leading-snug">Slide Title</div>
+                        <div id="tooltipSlideCategory" class="text-[10px] text-slate-400 mt-1 truncate">Slide Category</div>
+                        <div class="mt-2 text-[9px] font-bold text-indigo-300 flex items-center space-x-1 border-t border-slate-800 pt-1.5">
+                            <i class="fa-solid fa-hand-pointer text-[9px]"></i>
+                            <span>Click to jump to section</span>
+                        </div>
+                    </div>
+                    <!-- Arrow -->
+                    <div class="w-2.5 h-2.5 bg-slate-900/95 rotate-45 border-r border-b border-slate-700/80 -mt-1.5 mx-auto"></div>
+                </div>
             </div>
         </main>
 
@@ -606,6 +633,7 @@
         // INITIALIZATION
         document.addEventListener('DOMContentLoaded', () => {
             renderThumbnails();
+            renderProgressSegments();
             renderSlide(currentSlideIndex);
             setupKeyboardNav();
 
@@ -616,6 +644,57 @@
                 if (sidebar) sidebar.classList.add('hidden');
             }
         });
+
+        // RENDER INTERACTIVE PROGRESS BAR SEGMENTS & HOVER TOOLTIP
+        function renderProgressSegments() {
+            const container = document.getElementById('progressSegments');
+            if (!container) return;
+
+            container.innerHTML = slidesData.map((slide, idx) => `
+                <div 
+                    onclick="goToSlide(${idx})"
+                    onmouseenter="showProgressTooltip(event, ${idx})"
+                    onmousemove="moveProgressTooltip(event)"
+                    onmouseleave="hideProgressTooltip()"
+                    class="flex-1 h-full hover:bg-white/25 dark:hover:bg-white/15 transition-colors cursor-pointer relative"
+                    title="Slide ${slide.id}: ${slide.title}"
+                ></div>
+            `).join('');
+        }
+
+        function showProgressTooltip(event, idx) {
+            const tooltip = document.getElementById('progressTooltip');
+            const badge = document.getElementById('tooltipSlideBadge');
+            const title = document.getElementById('tooltipSlideTitle');
+            const category = document.getElementById('tooltipSlideCategory');
+            if (!tooltip || !slidesData[idx]) return;
+
+            const slide = slidesData[idx];
+            if (badge) badge.innerHTML = `<i class="fa-solid fa-layer-group text-blue-400"></i><span>Slide ${slide.id} / ${slidesData.length}</span>`;
+            if (title) title.innerText = slide.title;
+            if (category) category.innerText = slide.category;
+
+            tooltip.classList.remove('hidden');
+            moveProgressTooltip(event);
+        }
+
+        function moveProgressTooltip(event) {
+            const tooltip = document.getElementById('progressTooltip');
+            const container = document.getElementById('progressBarContainer');
+            if (!tooltip || !container) return;
+
+            const rect = container.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            
+            // Clamp tooltip position within progress bar boundaries
+            const clampedX = Math.max(110, Math.min(rect.width - 110, x));
+            tooltip.style.left = `${clampedX}px`;
+        }
+
+        function hideProgressTooltip() {
+            const tooltip = document.getElementById('progressTooltip');
+            if (tooltip) tooltip.classList.add('hidden');
+        }
 
         // TOGGLE DASHBOARD SIDEBAR (ALWAYS ANCHORED ON THE LEFT)
         function toggleSidebar() {
