@@ -267,14 +267,14 @@
                             <span>Quick AI Prompts</span>
                         </div>
                         <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none">
-                            <button onclick="sendQuickPrompt('Explain this slide in detail')" class="px-2.5 py-1 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-300 dark:border-slate-700 rounded-lg text-[11px] font-bold shadow-xs whitespace-nowrap transition hover:scale-[1.02] cursor-pointer">
-                                💡 Explain slide
+                            <button onclick="sendQuickPrompt('Explain the simple grammar rule for this slide')" class="px-2.5 py-1 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-300 dark:border-slate-700 rounded-lg text-[11px] font-bold shadow-xs whitespace-nowrap transition hover:scale-[1.02] cursor-pointer">
+                                📖 Easy Rule
                             </button>
-                            <button onclick="sendQuickPrompt('Give 2 real workplace examples')" class="px-2.5 py-1 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-300 dark:border-slate-700 rounded-lg text-[11px] font-bold shadow-xs whitespace-nowrap transition hover:scale-[1.02] cursor-pointer">
-                                💼 Workplace examples
+                            <button onclick="sendQuickPrompt('Show 2 simple correct vs incorrect examples')" class="px-2.5 py-1 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-300 dark:border-slate-700 rounded-lg text-[11px] font-bold shadow-xs whitespace-nowrap transition hover:scale-[1.02] cursor-pointer">
+                                💡 Easy Examples
                             </button>
-                            <button onclick="sendQuickPrompt('What common mistake should I avoid?')" class="px-2.5 py-1 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-300 dark:border-slate-700 rounded-lg text-[11px] font-bold shadow-xs whitespace-nowrap transition hover:scale-[1.02] cursor-pointer">
-                                ⚠️ Avoid mistakes
+                            <button onclick="sendQuickPrompt('What is the simplest rule of thumb to remember?')" class="px-2.5 py-1 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-300 dark:border-slate-700 rounded-lg text-[11px] font-bold shadow-xs whitespace-nowrap transition hover:scale-[1.02] cursor-pointer">
+                                🎯 Rule of Thumb
                             </button>
                         </div>
                     </div>
@@ -283,10 +283,10 @@
                     <div id="mainAiChatMessages" class="flex-1 min-h-0 overflow-y-auto p-3 space-y-3 bg-slate-50/80 dark:bg-slate-950/80 text-xs sm:text-sm">
                         <div class="p-3 rounded-xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 dark:from-blue-900/40 dark:to-indigo-900/40 border border-blue-200 dark:border-blue-800 text-xs leading-relaxed text-slate-800 dark:text-slate-200 shadow-xs">
                             <div class="flex items-center space-x-1.5 font-black text-blue-600 dark:text-blue-400 mb-1 text-xs uppercase tracking-wider">
-                                <i class="fa-solid fa-hand-wave text-xs"></i>
-                                <span>Welcome to AI Tutor!</span>
+                                <i class="fa-solid fa-graduation-cap text-xs"></i>
+                                <span>Welcome to AI Grammar Tutor!</span>
                             </div>
-                            Ask me anything about this slide's grammar rules, executive syntax tone, or strategic workplace communication.
+                            Ask me any question about English grammar rules, or tap a quick prompt above to get <strong>easy rules</strong>, <strong>simple examples</strong>, and <strong>practical tips</strong>!
                         </div>
                     </div>
 
@@ -1043,19 +1043,50 @@
 
         function generateFallbackResponse(text, slide) {
             const lower = text.toLowerCase();
-            if (lower.includes('example') || lower.includes('workplace')) {
-                return `Here are 2 strategic workplace examples for **${slide.title}**:\n\n` +
-                `1. *"Our team has deployed 3 critical updates this quarter."* (Emphasizes direct operational momentum).\n` +
-                `2. *"If market conditions evolve, we will adjust our strategic allocation immediately."* (Clear 1st conditional commitment).\n\n` +
-                `💡 **Pro Tip:** Use active syntax in executive updates to project certainty and leadership trust.`;
-            } else if (lower.includes('mistake') || lower.includes('avoid')) {
-                return `**Top Executive Mistake to Avoid on Slide ${slide.id}:**\n\n` +
-                `Avoid shifting between Past Simple and Present Perfect in the same paragraph when describing ongoing team projects. Keep your time anchors clear and deliberate!\n\n` +
-                `💡 **Pro Tip:** Avoid 2nd conditionals during pitch negotiations, as they accidentally signal hesitation or low probability to investors.`;
+            
+            if (slide.id === 2 || lower.includes('perfect') || lower.includes('past')) {
+                return `📖 **Easy Grammar Rule:**\n` +
+                `Use **Past Simple** (*verb + ed*) for time that is completely finished (*yesterday, in 2024*).\n` +
+                `Use **Present Perfect** (*have/has + past participle*) for time connected to NOW (*this week, so far, since 2020*).\n\n` +
+                `💡 **Easy Examples:**\n` +
+                `• ❌ *"We have launched our app yesterday."*\n` +
+                `• ✅ *"We launched our app yesterday."* (Yesterday is completely finished!)\n` +
+                `• ✅ *"We have launched 3 apps so far."* (Time is still open today!)\n\n` +
+                `🎯 **Rule of Thumb:** If you state a specific past time (*yesterday, last month, 2 hours ago*), use Past Simple!`;
+            } else if (slide.id === 3 || lower.includes('conditional') || lower.includes('if')) {
+                return `📖 **Easy Grammar Rule:**\n` +
+                `• **1st Conditional** (*If + present, will + verb*): Use for real, likely future plans.\n` +
+                `• **2nd Conditional** (*If + past, would + verb*): Use for imaginary, unlikely situations.\n\n` +
+                `💡 **Easy Examples:**\n` +
+                `• 💼 **Real Plan:** *"If you sign today, we will give you a 10% discount."*\n` +
+                `• 💭 **Imaginary:** *"If I won $1 Million, I would buy a island."*\n\n` +
+                `🎯 **Rule of Thumb:** In deals and sales, say **"If we do X, we will do Y"** (1st Conditional) so customers know you mean business!`;
+            } else if (slide.id === 4 || lower.includes('active') || lower.includes('passive') || lower.includes('voice')) {
+                return `📖 **Easy Grammar Rule:**\n` +
+                `• **Active Voice:** Person doing the action comes first (*Subject + Verb*).\n` +
+                `• **Passive Voice:** Thing receiving the action comes first (*Object + is/was + Verb*).\n\n` +
+                `💡 **Easy Examples:**\n` +
+                `• ✅ **Active:** *"Our team solved the problem."* (Clear, direct, accountable)\n` +
+                `• 🔹 **Passive:** *"The problem was solved."* (Focuses on the event, hides who did it)\n\n` +
+                `🎯 **Rule of Thumb:** Use Active Voice 90% of the time to keep your messages clear, short, and persuasive!`;
+            } else if (slide.id === 5 || lower.includes('modal') || lower.includes('deduction') || lower.includes('must')) {
+                return `📖 **Easy Grammar Rule:**\n` +
+                `Modal verbs show how sure you are about a fact:\n` +
+                `• **Must** = 100% Certain (Logical deduction)\n` +
+                `• **Might / Could** = 50% Possible (Maybe)\n` +
+                `• **Can't** = 0% Impossible (No way)\n\n` +
+                `💡 **Easy Examples:**\n` +
+                `• 💯 *"His car is outside, so he **must** be at work."*\n` +
+                `• ❓ *"Sales **might** go up next month."*\n` +
+                `• 🚫 *"That **can't** be correct!"*\n\n` +
+                `🎯 **Rule of Thumb:** **Must** = 100% sure, **Might** = 50% sure, **Can't** = 0% sure!`;
             } else {
-                return `**AI Tutor Analysis for ${slide.title}:**\n\n` +
-                `${slide.notes}\n\n` +
-                `💡 **Key Takeaway:** Apply this syntax rule directly in your next stakeholder presentation or executive email to maximize credibility.`;
+                return `📖 **Easy Grammar Rule for ${slide.title}:**\n` +
+                `Clear language structure helps you communicate directly, confidently, and accurately.\n\n` +
+                `💡 **Easy Examples:**\n` +
+                `• ✅ *"Our team delivers projects on schedule."* (Direct & clear)\n` +
+                `• ❌ *"Projects are generally executed without delay by us."* (Wordy)\n\n` +
+                `🎯 **Rule of Thumb:** Keep sentences simple, direct, and focused on the main action!`;
             }
         }
 
@@ -1094,11 +1125,23 @@
 
             const apiKey = getGeminiApiKey();
 
-            const systemPrompt = `You are an expert AI English Grammar & Executive Communication Tutor. Provide concise, clear, actionable workplace grammar advice, syntax tips, tone suggestions, and real-life examples based on the current presentation slide.\n\nACTIVE SLIDE CONTEXT:\n- Title: "${slide.title}"\n- Category: "${slide.category}"\n- Presenter Notes: "${slide.notes}"\n\nRule: Keep responses structured, professional, concise (under 180 words), with bold key syntax points and 1 actionable pro-tip.`;
+            const systemPrompt = `You are a friendly, encouraging AI English Grammar Tutor. Your goal is to explain grammar rules in the simplest, clearest way possible with easy examples.
+
+ALWAYS STRUCTURE YOUR RESPONSE AS:
+1. 📖 **Easy Grammar Rule**: State the core grammar rule in 1-2 simple sentences.
+2. 💡 **Easy Examples**: Provide 2 simple examples (e.g., ✅ Correct vs ❌ Incorrect or simple workplace sentences).
+3. 🎯 **Easy Rule of Thumb**: Give 1 memorable, short tip to remember this rule easily.
+
+CURRENT SLIDE TOPIC: Slide ${slide.id} - "${slide.title}" (${slide.category})
+SLIDE NOTES: "${slide.notes}"
+
+User Question: "${text}"
+
+Keep response friendly, simple, clean Markdown, and under 160 words.`;
 
             if (apiKey) {
                 try {
-                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:streamGenerateContent?alt=sse&key=${apiKey}`;
+                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=${apiKey}`;
                     const response = await fetch(endpoint, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
