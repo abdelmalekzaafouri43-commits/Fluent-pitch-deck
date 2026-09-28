@@ -69,8 +69,9 @@ fun WebPresentationScreen(modifier: Modifier = Modifier) {
                     loadWithOverviewMode = true
                     mediaPlaybackRequiresUserGesture = false
                     mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
-                    cacheMode = WebSettings.LOAD_DEFAULT
+                    cacheMode = WebSettings.LOAD_NO_CACHE
                 }
+                clearCache(true)
                 addJavascriptInterface(WebAppInterface(context), "AndroidBridge")
                 webViewClient = WebViewClient()
                 webChromeClient = WebChromeClient()

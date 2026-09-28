@@ -106,6 +106,44 @@
         .slide-transition-scale {
             animation: scaleUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
+
+        /* Staggered Element Entrance Animations for Individual Slide Elements */
+        @keyframes elemFadeUp {
+            from { opacity: 0; transform: translateY(22px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes elemFadeDown {
+            from { opacity: 0; transform: translateY(-18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes elemPopIn {
+            from { opacity: 0; transform: scale(0.9) translateY(12px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        @keyframes elemSlideRight {
+            from { opacity: 0; transform: translateX(-24px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .anim-fade-up {
+            animation: elemFadeUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .anim-fade-down {
+            animation: elemFadeDown 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .anim-pop-in {
+            animation: elemPopIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .anim-slide-right {
+            animation: elemSlideRight 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .delay-1 { animation-delay: 0.08s; }
+        .delay-2 { animation-delay: 0.16s; }
+        .delay-3 { animation-delay: 0.24s; }
+        .delay-4 { animation-delay: 0.32s; }
+        .delay-5 { animation-delay: 0.40s; }
+        .delay-6 { animation-delay: 0.48s; }
     </style>
 </head>
 <body class="h-full bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-100 antialiased overflow-hidden transition-colors duration-300" id="appBody">
@@ -448,31 +486,31 @@
                 render: function() {
                     return `
                         <div class="flex flex-col justify-between h-full">
-                            <div class="inline-flex items-center space-x-2 px-3 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-full text-xs font-bold w-max">
+                            <div class="inline-flex items-center space-x-2 px-3 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-full text-xs font-bold w-max anim-fade-down delay-1">
                                 <i class="fa-solid fa-shield-halved"></i>
                                 <span>Executive Communication Series</span>
                             </div>
                             
                             <div class="my-auto space-y-3 sm:space-y-4">
-                                <h1 class="text-2xl sm:text-4xl 2xl:text-5xl font-extrabold text-slate-900 dark:text-white font-serif-heading leading-tight">
+                                <h1 class="text-2xl sm:text-4xl 2xl:text-5xl font-extrabold text-slate-900 dark:text-white font-serif-heading leading-tight anim-fade-up delay-2">
                                     Mastering Professional Nuance: <br/>
                                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">Advanced English Grammar</span>
                                 </h1>
-                                <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-base max-w-2xl font-medium">
+                                <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-base max-w-2xl font-medium anim-fade-up delay-3">
                                     Navigating Workplace Dynamics, Financial Risk Signals, Crisis PR & Strategic Deduction in Real Life.
                                 </p>
                             </div>
 
                             <div class="grid grid-cols-3 gap-3 sm:gap-4 pt-4 sm:pt-6 border-t border-slate-200 dark:border-slate-800">
-                                <div class="p-2.5 sm:p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                                <div class="p-2.5 sm:p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 anim-pop-in delay-4">
                                     <div class="text-[10px] sm:text-xs font-bold text-blue-600 dark:text-blue-400 uppercase">Impact 01</div>
                                     <div class="text-[11px] sm:text-xs font-semibold text-slate-800 dark:text-slate-200 mt-0.5 sm:mt-1">Pitch Precision</div>
                                 </div>
-                                <div class="p-2.5 sm:p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                                <div class="p-2.5 sm:p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 anim-pop-in delay-5">
                                     <div class="text-[10px] sm:text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Impact 02</div>
                                     <div class="text-[11px] sm:text-xs font-semibold text-slate-800 dark:text-slate-200 mt-0.5 sm:mt-1">Negotiation Tone</div>
                                 </div>
-                                <div class="p-2.5 sm:p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                                <div class="p-2.5 sm:p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 anim-pop-in delay-6">
                                     <div class="text-[10px] sm:text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase">Impact 03</div>
                                     <div class="text-[11px] sm:text-xs font-semibold text-slate-800 dark:text-slate-200 mt-0.5 sm:mt-1">Crisis PR Control</div>
                                 </div>
@@ -490,13 +528,13 @@
                 render: function() {
                     return `
                         <div class="flex flex-col h-full justify-between">
-                            <div>
+                            <div class="anim-fade-down delay-1">
                                 <span class="text-xs font-extrabold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Startup Pitching & Investment</span>
-                                <h2 class="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Present Perfect vs. Past Simple</h2>
+                                <h2 class="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1 anim-fade-up delay-2">Present Perfect vs. Past Simple</h2>
                             </div>
 
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 my-auto">
-                                <div class="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 hover:border-blue-500 transition group">
+                                <div class="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 hover:border-blue-500 transition group anim-slide-right delay-3">
                                     <div class="flex items-center justify-between mb-2 sm:mb-3">
                                         <span class="px-2.5 py-1 bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 rounded-md text-[11px] font-bold">Past Simple (Finished Time)</span>
                                         <i class="fa-solid fa-clock-rotate-left text-amber-500"></i>
@@ -507,7 +545,7 @@
                                     </p>
                                 </div>
 
-                                <div class="p-4 sm:p-5 rounded-2xl bg-blue-50/50 dark:bg-blue-900/20 border-2 border-blue-500 shadow-md">
+                                <div class="p-4 sm:p-5 rounded-2xl bg-blue-50/50 dark:bg-blue-900/20 border-2 border-blue-500 shadow-md anim-slide-right delay-4">
                                     <div class="flex items-center justify-between mb-2 sm:mb-3">
                                         <span class="px-2.5 py-1 bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 rounded-md text-[11px] font-bold">Present Perfect (Ongoing Bridge)</span>
                                         <i class="fa-solid fa-chart-line text-blue-500"></i>
@@ -519,7 +557,7 @@
                                 </div>
                             </div>
 
-                            <div class="p-3 rounded-xl bg-amber-50 dark:bg-slate-800 border border-amber-200 dark:border-slate-700 flex items-center space-x-3">
+                            <div class="p-3 rounded-xl bg-amber-50 dark:bg-slate-800 border border-amber-200 dark:border-slate-700 flex items-center space-x-3 anim-fade-up delay-5">
                                 <i class="fa-solid fa-lightbulb text-amber-500 text-lg shrink-0"></i>
                                 <span class="text-[11px] sm:text-xs text-slate-700 dark:text-slate-300 font-medium">
                                     <strong>Investor Tip:</strong> Saying <em>"We raised \$2M last year"</em> focuses on history. Saying <em>"We have raised \$2M to date"</em> emphasizes ongoing momentum!
@@ -538,13 +576,13 @@
                 render: function() {
                     return `
                         <div class="flex flex-col h-full justify-between">
-                            <div>
+                            <div class="anim-fade-down delay-1">
                                 <span class="text-xs font-extrabold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Financial Risk & Deal Closing</span>
-                                <h2 class="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">First Conditional vs. Second Conditional</h2>
+                                <h2 class="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1 anim-fade-up delay-2">First Conditional vs. Second Conditional</h2>
                             </div>
 
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 my-auto">
-                                <div class="p-4 sm:p-5 rounded-2xl bg-emerald-50/50 dark:bg-emerald-900/20 border border-emerald-300 dark:border-emerald-700">
+                                <div class="p-4 sm:p-5 rounded-2xl bg-emerald-50/50 dark:bg-emerald-900/20 border border-emerald-300 dark:border-emerald-700 anim-pop-in delay-3">
                                     <span class="px-2.5 py-1 bg-emerald-100 dark:bg-emerald-800 text-emerald-800 dark:text-emerald-200 rounded-md text-[11px] font-bold">1st Conditional (Likely / Actionable)</span>
                                     <p class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mt-2 sm:mt-3">"If interest rates drop, property sales will spike."</p>
                                     <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 mt-1.5 sm:mt-2">
@@ -552,7 +590,7 @@
                                     </p>
                                 </div>
 
-                                <div class="p-4 sm:p-5 rounded-2xl bg-rose-50/50 dark:bg-rose-900/20 border border-rose-300 dark:border-rose-700">
+                                <div class="p-4 sm:p-5 rounded-2xl bg-rose-50/50 dark:bg-rose-900/20 border border-rose-300 dark:border-rose-700 anim-pop-in delay-4">
                                     <span class="px-2.5 py-1 bg-rose-100 dark:bg-rose-800 text-rose-800 dark:text-rose-200 rounded-md text-[11px] font-bold">2nd Conditional (Hypothetical / Unlikely)</span>
                                     <p class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mt-2 sm:mt-3">"If I won the lottery, I would buy a skyscraper."</p>
                                     <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 mt-1.5 sm:mt-2">
@@ -561,7 +599,7 @@
                                 </div>
                             </div>
 
-                            <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-[11px] sm:text-xs font-medium text-slate-700 dark:text-slate-300">
+                            <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-[11px] sm:text-xs font-medium text-slate-700 dark:text-slate-300 anim-fade-up delay-5">
                                 <i class="fa-solid fa-triangle-exclamation text-rose-500 mr-2"></i>
                                 <strong>Negotiation Warning:</strong> Do not say <em>"If we closed today, I would give a discount"</em> (2nd Conditional). Say <em>"If we close today, I will give a discount"</em> (1st Conditional).
                             </div>
@@ -578,13 +616,13 @@
                 render: function() {
                     return `
                         <div class="flex flex-col h-full justify-between">
-                            <div>
+                            <div class="anim-fade-down delay-1">
                                 <span class="text-xs font-extrabold text-rose-600 dark:text-rose-400 uppercase tracking-wider">Corporate Crisis PR & PR Tone</span>
-                                <h2 class="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Active Voice vs. Passive Voice</h2>
+                                <h2 class="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1 anim-fade-up delay-2">Active Voice vs. Passive Voice</h2>
                             </div>
 
                             <div class="space-y-3 sm:space-y-4 my-auto">
-                                <div class="p-3.5 sm:p-4 rounded-xl bg-blue-50 dark:bg-slate-800 border-l-4 border-blue-600 flex justify-between items-center">
+                                <div class="p-3.5 sm:p-4 rounded-xl bg-blue-50 dark:bg-slate-800 border-l-4 border-blue-600 flex justify-between items-center anim-slide-right delay-3">
                                     <div>
                                         <span class="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase">Active Voice (High Ownership)</span>
                                         <p class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mt-0.5">"Our engineering team made a critical database error."</p>
@@ -592,7 +630,7 @@
                                     <span class="px-2.5 py-1 bg-blue-600 text-white rounded-lg text-[10px] sm:text-xs font-bold shrink-0 ml-2">Direct & Transparent</span>
                                 </div>
 
-                                <div class="p-3.5 sm:p-4 rounded-xl bg-slate-100 dark:bg-slate-800/50 border-l-4 border-slate-400 flex justify-between items-center">
+                                <div class="p-3.5 sm:p-4 rounded-xl bg-slate-100 dark:bg-slate-800/50 border-l-4 border-slate-400 flex justify-between items-center anim-slide-right delay-4">
                                     <div>
                                         <span class="text-[10px] font-bold text-slate-500 uppercase">Passive Voice (Deflecting / Diplomatic)</span>
                                         <p class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white mt-0.5">"A database error was made."</p>
@@ -601,7 +639,7 @@
                                 </div>
                             </div>
 
-                            <div class="p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 text-[11px] sm:text-xs text-slate-600 dark:text-slate-300">
+                            <div class="p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 anim-fade-up delay-5">
                                 <strong>Strategy Rule:</strong> Use <strong>Active Voice</strong> when accepting responsibility to build brand integrity. Use <strong>Passive Voice</strong> when preserving diplomatic anonymity or highlighting the system.
                             </div>
                         </div>
@@ -617,13 +655,13 @@
                 render: function() {
                     return `
                         <div class="flex flex-col h-full justify-between">
-                            <div>
+                            <div class="anim-fade-down delay-1">
                                 <span class="text-xs font-extrabold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Forensic Audit & Data Analytics</span>
-                                <h2 class="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Modal Verbs of Deduction</h2>
+                                <h2 class="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1 anim-fade-up delay-2">Modal Verbs of Deduction</h2>
                             </div>
 
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 my-auto">
-                                <div class="p-3 sm:p-4 rounded-xl bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800">
+                                <div class="p-3 sm:p-4 rounded-xl bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800 anim-pop-in delay-3">
                                     <span class="text-[10px] sm:text-xs font-extrabold text-rose-600 dark:text-rose-400">0% Certainty (Impossible)</span>
                                     <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-0.5">Can't</h3>
                                     <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 mt-1">
@@ -631,7 +669,7 @@
                                     </p>
                                 </div>
 
-                                <div class="p-3 sm:p-4 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800">
+                                <div class="p-3 sm:p-4 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 anim-pop-in delay-4">
                                     <span class="text-[10px] sm:text-xs font-extrabold text-amber-600 dark:text-amber-400">50% Certainty (Possible)</span>
                                     <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-0.5">Might / Could</h3>
                                     <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 mt-1">
@@ -639,7 +677,7 @@
                                     </p>
                                 </div>
 
-                                <div class="p-3 sm:p-4 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800">
+                                <div class="p-3 sm:p-4 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 anim-pop-in delay-5">
                                     <span class="text-[10px] sm:text-xs font-extrabold text-emerald-600 dark:text-emerald-400">100% Certainty (Logical Conclusion)</span>
                                     <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-0.5">Must</h3>
                                     <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 mt-1">
@@ -648,7 +686,7 @@
                                 </div>
                             </div>
 
-                            <div class="p-3 bg-blue-50 dark:bg-slate-800 rounded-xl text-[11px] sm:text-xs text-slate-700 dark:text-slate-300">
+                            <div class="p-3 bg-blue-50 dark:bg-slate-800 rounded-xl text-[11px] sm:text-xs text-slate-700 dark:text-slate-300 anim-fade-up delay-6">
                                 <strong>Analytical Precision:</strong> Modal choice indicates evidence strength to executives without needing numerical probability percentages.
                             </div>
                         </div>
